@@ -116,3 +116,22 @@ body {
   background-color: var(--brand-dark);
   color: #FFFFFF !important;
 }
+/* Custom Auth Tabs (Overriding Bootstrap Defaults) */
+#authTab .nav-link {
+  color: var(--brand-dark) !important;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Hover state for inactive tab */
+#authTab .nav-link:not(.active):hover {
+  background-color: #e9ecef !important;
+  color: var(--brand-dark) !important;
+}
+
+/* Active tab state */
+#authTab .nav-link.active {
+  background-color: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  border: 1px solid var(--brand-dark);
+}
