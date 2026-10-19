@@ -1,0 +1,104 @@
+:root {
+  --brand-yellow: #FFF100; /* Jaune chaud principal */
+  --brand-yellow-hover: #e6d800;
+  --brand-dark: #121212;
+  --border-color: #e2e2e2;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--brand-dark);
+  background-color: #FAFAFA;
+}
+
+/* Custom Navbar */
+.navbar {
+  border-bottom: 2px solid var(--brand-dark);
+  background-color: #FFFFFF !important;
+}
+
+.navbar-brand {
+  color: var(--brand-dark) !important;
+}
+
+.brand-logo-bg {
+  background-color: var(--brand-yellow);
+  padding: 4px 8px;
+  border: 2px solid var(--brand-dark);
+  border-radius: 4px;
+}
+
+/* Custom Yellow Buttons */
+.btn-yellow {
+  background-color: var(--brand-yellow);
+  color: var(--brand-dark);
+  border: 2px solid var(--brand-dark);
+  font-weight: 700;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-yellow:hover {
+  background-color: var(--brand-yellow-hover);
+  color: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* Custom Sharp Cards & Containers */
+.custom-card {
+  background: #FFFFFF;
+  border: 2px solid var(--brand-dark);
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0px var(--brand-dark) !important;
+}
+
+/* Custom Search Container */
+.search-box {
+  border: 2px solid var(--brand-dark);
+  border-radius: 10px;
+  box-shadow: 4px 4px 0px var(--brand-dark);
+}
+
+/* Badges */
+.custom-badge-yellow {
+  background-color: var(--brand-yellow);
+  color: var(--brand-dark);
+  border: 1px solid var(--brand-dark);
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.custom-badge-dark {
+  background-color: var(--brand-dark);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+/* Modal Sharp Styling */
+.modal-content {
+  border: 2px solid var(--brand-dark);
+  border-radius: 12px;
+  box-shadow: 6px 6px 0px var(--brand-dark);
+}
+
+.modal-header {
+  border-bottom: 2px solid var(--brand-dark);
+  background-color: var(--brand-yellow);
+}
+
+.form-control, .form-select {
+  border: 2px solid var(--brand-dark);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--brand-dark);
+  box-shadow: 2px 2px 0px var(--brand-dark);
+}
