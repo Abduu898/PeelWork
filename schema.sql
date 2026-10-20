@@ -1,41 +1,49 @@
+DROP DATABASE IF EXISTS hireloop;
+CREATE DATABASE hireloop CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE hireloop;
+
 CREATE TABLE companies (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  location VARCHAR(150),
+  description TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE ads (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    location VARCHAR(255) NOT NULL,
-    salary VARCHAR(100),
-    contract_type VARCHAR(50) NOT NULL,
-    company_id INT NOT NULL,
-    category_id INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(150) NOT NULL,
+  description TEXT NOT NULL,
+  location VARCHAR(150),
+  salary VARCHAR(100),
+  contract_type VARCHAR(50),
+  company_id INT,
+  category_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE SET NULL,
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
+
 CREATE TABLE people (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('user', 'admin') DEFAULT 'user',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE applications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    ad_id INT NOT NULL,
-    person_id INT NOT NULL,
-    message TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (ad_id) REFERENCES ads(id) ON DELETE CASCADE,
-    FOREIGN KEY (person_id) REFERENCES people(id) ON DELETE CASCADE
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ad_id INT NOT NULL,
+  applicant_name VARCHAR(150) NOT NULL,
+  applicant_email VARCHAR(150) NOT NULL,
+  message TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ad_id) REFERENCES ads(id) ON DELETE CASCADE
 );
