@@ -1,55 +1,174 @@
-# PROOFWORK — frontend foundation
+# JobBoard / HireLoop
 
-An incremental implementation of `Proofwork.txt`, preserving the existing Bootstrap UI: yellow accents, dark borders, typography, card styling, and page layouts.
+A lightweight job-board MVP built with Express, MySQL, Bootstrap, and vanilla JavaScript. The project supports public job browsing, candidate applications, company-owned listings, and separate super-admin management.
 
-## Run the frontend
+## Current phase
 
-With Node.js installed:
+The frontend and backend are connected. The current MVP includes:
+
+- Public job search and job details.
+- Candidate registration and login.
+- Candidate dashboard with submitted applications and statuses.
+- Guest applications without an account.
+- Company-admin dashboards scoped to one company.
+- Listing creation, editing, and deletion for company admins.
+- Application inboxes for company admins.
+- Application status updates: `pending`, `reviewed`, `accepted`, and `rejected`.
+- Super-admin access to all companies, company admins, and listings.
+- Responsive Bootstrap UI with the yellow neo-brutalist visual style.
+
+The application flow uses a name, email, optional resume filename, and message. Resume files are not uploaded yet.
+
+## Requirements
+
+- Node.js
+- MySQL
+- Internet access for Bootstrap and Bootstrap Icons CDN assets
+
+## Setup
+
+Install dependencies:
+
+```sh
+npm install
+```
+
+Create the development database and seed data. The schema script recreates the `hireloop` database:
+
+```sh
+mysql -u root -p < schema.sql
+mysql -u root -p hireloop < seed.sql
+```
+
+The default local database connection is configured in [`db.js`](./db.js):
+
+```text
+host: localhost
+user: hireloop
+password: password123
+database: hireloop
+```
+
+Update [`db.js`](./db.js) if your local MySQL credentials are different.
+
+## Run the application
+
+Start the Express server:
+
+```sh
+npm start
+```
+
+Open:
+
+```text
+http://127.0.0.1:3000/
+```
+
+Keep the server terminal running while using the application. Stopping Node causes the browser to show `ERR_CONNECTION_REFUSED`.
+
+The older static frontend preview is still available with:
 
 ```sh
 npm run dev
 ```
 
-Open **http://127.0.0.1:5173**. This preview needs no database and no dependency installation. Bootstrap and its icons load from the existing CDN links, so they require internet access.
+That preview is useful for isolated UI work, but it does not provide the real authentication, MySQL persistence, dashboards, or application API. Use `npm start` for the current integrated project.
+
+## Seed accounts
+
+These accounts are created by [`seed.sql`](./seed.sql):
+
+| Role | Email | Password | Dashboard |
+|---|---|---|---|
+| Super admin | `admin@hireloop.com` | `admin123` | `super-admin.html` |
+| TechCorp company admin | `techcorp@hireloop.com` | `company123` | `admin.html` |
+| DesignStudio company admin | `designstudio@hireloop.com` | `company123` | `admin.html` |
+| Candidate | `user@hireloop.com` | `user123` | `candidate-dashboard.html` |
+
+These are development credentials only.
+
+## Main routes
+
+### Public
+
+- `GET /ads`
+- `GET /ads/:id`
+- `GET /categories`
+- `POST /ads/:id/applications`
+
+### Authentication
+
+- `POST /auth/register/candidate`
+- `POST /auth/login`
+- `POST /auth/logout`
+
+### Candidate
+
+- `GET /me/applications`
+
+### Company admin
+
+- `GET /company/profile`
+- `GET /company/ads`
+- `POST /company/ads`
+- `PUT /company/ads/:id`
+- `DELETE /company/ads/:id`
+- `GET /company/applications`
+- `PATCH /applications/:id/status`
+
+### Super admin
+
+- `GET /admin/companies`
+- `POST /admin/company-admins`
+- `GET /admin/ads`
+- `PUT /admin/ads/:id`
+- `DELETE /admin/ads/:id`
+
+## Project structure
+
+```text
+server.js                 Express API and role-based authorization
+db.js                     MySQL connection pool
+schema.sql                Canonical database schema
+seed.sql                  Development companies, jobs, and accounts
+index.html                Public job board and search
+job-detail.html           Job details and application form
+login.html                Login and candidate registration
+candidate-dashboard.html  Candidate application dashboard
+admin.html                Company-admin dashboard
+super-admin.html          Super-admin dashboard
+css/style.css             Shared Bootstrap overrides and visual system
+js/
+  components/             Shared navigation, footer, cards, and details
+  pages/                  Page-specific frontend controllers
+  services/               API adapters
+scripts/preview.js        Static frontend preview server
+tests/                    Frontend tests
+```
+
+## Known MVP limitations
+
+- Sessions are stored in memory and disappear when the server restarts.
+- Passwords use SHA-256 for this school project; production applications should use a password-hashing algorithm such as Argon2 or bcrypt.
+- Guest applications are stored but are not linked to a candidate dashboard.
+- Resume files are validated and displayed by filename only; they are not uploaded or persisted.
+- Bootstrap and icons are loaded from a CDN.
+
+## Testing
+
+Run the existing Node test suite with:
 
 ```sh
 npm test
 ```
 
-## What works in this step
+For an integrated manual check:
 
-- Job search by keyword/company/category and location, with an accurate result count and empty state.
-- Inline job details without a page reload, with keyboard focus and a close control.
-- A separate, linkable details page for each sample job.
-- Shared navigation/footer and reusable card/details components.
-- Candidate login/registration previews include validation, password visibility, and guest browsing. They check fields without creating accounts or signing in.
-- The admin preview shares the board's sample jobs. Add/edit/archive jobs, inspect companies, and change application statuses in memory. Changes reset on page reload and do not change the public board.
-- Inline Application Studio includes guest contact details, a message, an optional PDF picker, and an editable review. Nothing is submitted or uploaded.
-
-All opportunities and portfolio examples are fictional frontend fixtures. Authentication, application submission, uploads, and permanent saving are future backend work. Admin preview changes and application reviews exist only in the current page's memory.
-
-## Frontend structure
-
-```text
-index.html                 Opportunity board and search
-job-detail.html            Selected job and inline Application Studio
-login.html                 Candidate sign in / registration preview
-admin.html                 Interactive administrator preview
-css/style.css              Teammate's design + small usability additions
-js/
-  components/shell.js      Shared navbar and footer
-  components/jobs.js       Job cards and job details
-  data/jobs.js             Fictional sample opportunities
-  services/jobs.js         Frontend data adapter; future API boundary
-  pages/board.js           Board interactions
-  pages/detail.js          Detail page interactions
-  pages/auth.js            Account form previews and password controls
-  pages/admin.js           Temporary job management and application review
-  pages/application.js     Application form and review
-scripts/preview.js         Local static preview server
-tests/frontend.test.js     Search, job selection, and HTML escaping checks
-```
-
-The original `server.js`, `db.js`, `schema.sql`, and `seed.sql` are unchanged. The existing backend is separate and still runs with `npm start` after installing its dependencies and setting up its existing MySQL database. This frontend increment does not use it.
-
-See [the next frontend steps](docs/frontend-roadmap.md).
+1. Start the server with `npm start`.
+2. Open the public board.
+3. Log in as the candidate account and submit an application.
+4. Confirm it appears in the candidate dashboard.
+5. Log in as a company admin and confirm it appears in that company’s application inbox.
+6. Change the application status and confirm the updated status appears for the candidate.
+7. Log in as the super admin and confirm access to all companies and listings.
