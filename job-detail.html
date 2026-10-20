@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job Board - Full Stack Engineer</title>
+  <title>JobBoard — Opportunity details</title>
   
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,32 +12,13 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
   <!-- 1. NAVBAR -->
-  <nav class="navbar navbar-expand-lg sticky-top py-3">
-    <div class="container">
-      <a class="navbar-brand fw-extrabold fs-4 d-flex align-items-center gap-2" href="index.html">
-        <span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span>
-        <span class="fw-bold tracking-tight">JobBoard</span>
-      </a>
-      <button class="navbar-toggler border-2 border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center gap-2 mt-3 mt-lg-0">
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark active" href="index.html">Find Jobs</a></li>
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="login.html">Login</a></li>
-          <li class="nav-item ms-lg-2 w-100 w-lg-auto">
-            <a class="btn btn-yellow px-4 w-100" href="admin.html">Post a Job</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div id="site-navigation"></div>
 
   <!-- 2. MAIN CONTENT -->
-  <main class="py-5">
+  <main class="py-5 flex-grow-1">
     <div class="container">
       
       <!-- Back Link -->
@@ -48,126 +29,67 @@
       <div class="row g-4">
         
         <!-- Left Column: Job Details -->
-        <div class="col-lg-8">
-          <div class="custom-card p-4 p-md-5 mb-4">
-            
-            <!-- Job Header -->
-            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
-              <div>
-                <h1 class="h2 fw-black mb-1" style="font-weight: 800;">Full Stack Engineer</h1>
-                <p class="fs-5 text-muted fw-semibold mb-0">TechCorp Studios</p>
-              </div>
-              <span class="custom-badge-yellow px-3 py-1 fs-6">CDI</span>
-            </div>
-
-            <!-- Tags / Meta Info -->
-            <div class="d-flex flex-wrap gap-3 text-dark fw-medium small border-top border-bottom border-2 border-dark py-3 my-4">
-              <div><i class="bi bi-geo-alt-fill me-1"></i> Paris, France</div>
-              <div><i class="bi bi-cash-stack me-1"></i> €45k - €55k / year</div>
-              <div><i class="bi bi-clock-fill me-1"></i> Posted 2 days ago</div>
-            </div>
-
-            <!-- Description Body -->
-            <section class="mb-5">
-              <h2 class="h5 fw-bold mb-3">About the Role</h2>
-              <p class="text-secondary fw-medium">TechCorp Studios is looking for a passionate Full Stack Engineer to build next-generation SaaS tools. You will join a high-velocity product team working on high-traffic web apps using React, Node.js, and PostgreSQL.</p>
-            </section>
-
-            <section class="mb-5">
-              <h2 class="h5 fw-bold mb-3">Key Responsibilities</h2>
-              <ul class="text-secondary fw-medium ps-3 lh-lg">
-                <li>Architect scalable REST and GraphQL backend services in Node.js / TypeScript.</li>
-                <li>Develop responsive, accessible UI components in React and modern CSS.</li>
-                <li>Collaborate closely with product managers, UX designers, and QA engineers.</li>
-                <li>Optimize front-end application performance and maintain CI/CD pipelines.</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 class="h5 fw-bold mb-3">Requirements</h2>
-              <ul class="text-secondary fw-medium ps-3 lh-lg">
-                <li>3+ years of commercial software development experience.</li>
-                <li>Strong command of JavaScript (ES6+), React, and Node.js.</li>
-                <li>Familiarity with SQL/NoSQL databases and RESTful API principles.</li>
-                <li>Solid understanding of Git version control and modern workflows.</li>
-              </ul>
-            </section>
-
-          </div>
-        </div>
+        <div class="col-lg-8"><div id="job-page-content" class="custom-card p-4 p-md-5 mb-4" aria-live="polite">Loading job details…</div></div>
 
         <!-- Right Column: Sticky Action Sidebar -->
         <div class="col-lg-4">
           <div class="custom-card p-4 sticky-top" style="top: 100px;">
-            <h3 class="h5 fw-bold mb-3">Interested in this role?</h3>
-            <p class="small text-secondary fw-medium mb-4">Apply directly with your resume and a quick introductory note.</p>
+            <h2 class="h5 fw-bold mb-3">Show what you can bring.</h2>
+            <p class="small text-secondary fw-medium mb-4">Introduce yourself and choose relevant work for your Proof Pack. A portfolio is optional; you can continue as a guest.</p>
             
-            <button class="btn btn-yellow w-100 py-3 mb-3 fs-6" data-bs-toggle="modal" data-bs-target="#applyModal">
-              Apply Now <i class="bi bi-send-fill ms-1"></i>
-            </button>
+            <a id="start-application" href="#application-studio" class="btn btn-yellow w-100 py-3 mb-3 fs-6" hidden>Build your application <i class="bi bi-arrow-down ms-1" aria-hidden="true"></i></a>
             
             <div class="p-3 bg-light rounded-3 border border-dark border-2 text-center">
-              <p class="small text-muted fw-semibold mb-0"><i class="bi bi-shield-check text-dark me-1"></i> Verified Employer</p>
+              <p class="small text-muted fw-semibold mb-0"><i class="bi bi-shield-check text-dark me-1"></i> Application preview · Nothing is sent</p>
             </div>
           </div>
         </div>
 
       </div>
+      <section id="application-studio" class="custom-card p-4 p-md-5 mt-4" aria-labelledby="application-heading" hidden>
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+          <div><span class="custom-badge-yellow small px-2 py-1">Application Studio</span><h2 id="application-heading" class="h3 fw-bold mt-3 mb-2">Build your application</h2><p id="application-role" class="text-muted fw-medium mb-0"></p></div>
+          <span class="custom-badge-dark small px-3 py-2">Guest preview</span>
+        </div>
+        <p class="small text-secondary">Use sample details to explore the form. You can review your application here; nothing is sent or saved. <a class="text-dark fw-bold" href="login.html">Sign-in preview</a></p>
+        <p class="small fw-bold border-top border-bottom border-2 border-dark py-3 my-4">1. Your details <span aria-hidden="true">→</span> 2. Optional Proof Pack <span aria-hidden="true">→</span> 3. Review</p>
+        <form id="application-form">
+          <fieldset id="application-fields" disabled>
+            <legend class="h5 fw-bold mb-3">Your details</legend>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6"><label for="fullName" class="form-label fw-bold small">Full name</label><input type="text" class="form-control" id="fullName" name="fullName" autocomplete="name" maxlength="120" required></div>
+              <div class="col-md-6"><label for="email" class="form-label fw-bold small">Email address</label><input type="email" class="form-control" id="email" name="email" autocomplete="email" maxlength="254" required></div>
+              <div class="col-md-6"><label for="phone" class="form-label fw-bold small">Phone (optional)</label><input type="tel" class="form-control" id="phone" name="phone" autocomplete="tel" maxlength="30"></div>
+              <div class="col-md-6"><label for="resume" class="form-label fw-bold small">Resume (optional PDF, up to 5 MB)</label><input class="form-control" type="file" id="resume" accept="application/pdf,.pdf" aria-describedby="resume-help"><p id="resume-help" class="small text-muted mt-2 mb-0">The preview only displays the file name. No file is uploaded.</p></div>
+              <div class="col-12"><label for="message" class="form-label fw-bold small">Your message</label><textarea class="form-control" id="message" name="message" rows="4" maxlength="3000" placeholder="Tell the team why this opportunity interests you and what you could contribute." required></textarea></div>
+            </div>
+            <fieldset class="border-top border-2 border-dark pt-4 mb-4">
+              <legend class="h5 fw-bold pt-3">Choose your Proof Pack <span class="small text-muted fw-normal">(optional)</span></legend>
+              <p class="small text-secondary">Select relevant work from this sample portfolio. You can review your application with no proofs attached.</p>
+              <p class="small fw-bold mb-2">Skills mentioned in this opportunity</p><div id="role-requirements" class="d-flex flex-wrap gap-2 mb-3"></div>
+              <p class="small text-muted">Skill tags describe linked evidence; they do not verify proficiency.</p>
+              <div id="proof-options" class="row g-3"></div>
+              <p id="proof-count" class="small fw-bold mt-3 mb-0" role="status">0 proofs selected</p>
+            </fieldset>
+            <button type="submit" class="btn btn-yellow px-4 py-2">Review application</button>
+          </fieldset>
+        </form>
+        <section id="application-review" class="border-top border-2 border-dark mt-4 pt-4" aria-labelledby="review-heading" hidden>
+          <h3 id="review-heading" class="h4 fw-bold" tabindex="-1">Review your application</h3>
+          <p class="preview-feedback small">Preview only · This application has not been submitted.</p>
+          <div id="application-summary"></div>
+          <div class="d-flex gap-2 flex-wrap mt-4"><button type="button" id="edit-application" class="btn btn-outline-dark">Edit application</button><button type="button" class="btn btn-yellow" disabled>Submission coming soon</button></div>
+        </section>
+      </section>
     </div>
   </main>
 
-  <!-- 3. APPLICATION MODAL -->
-  <div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        
-        <div class="modal-header">
-          <h5 class="modal-header-title fw-bold mb-0" id="applyModalLabel">Apply for Full Stack Engineer</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body p-4">
-          <form>
-            <div class="mb-3">
-              <label for="fullName" class="form-label fw-bold small">Full Name</label>
-              <input type="text" class="form-control" id="fullName" placeholder="Jane Doe" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="email" class="form-label fw-bold small">Email Address</label>
-              <input type="email" class="form-control" id="email" placeholder="jane@example.com" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="message" class="form-label fw-bold small">Cover Note / Message</label>
-              <textarea class="form-control" id="message" rows="3" placeholder="Why are you a good fit for this role?"></textarea>
-            </div>
-
-            <div class="mb-4">
-              <label for="resume" class="form-label fw-bold small">Upload Resume (PDF)</label>
-              <input class="form-control" type="file" id="resume" required>
-            </div>
-
-            <button type="submit" class="btn btn-yellow w-100 py-2.5">Submit Application</button>
-          </form>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
   <!-- 4. FOOTER -->
-  <footer class="bg-white border-top border-2 border-dark py-4 mt-auto">
-    <div class="container text-center text-md-between d-md-flex align-items-center">
-      <p class="mb-2 mb-md-0 text-dark fw-medium small">&copy; 2026 JobBoard. All rights reserved.</p>
-      <div>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small me-3">Privacy Policy</a>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small">Terms of Service</a>
-      </div>
-    </div>
-  </footer>
+  <div id="site-footer"></div>
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/components/shell.js"></script>
+  <script type="module" src="js/pages/detail.js"></script>
 </body>
 </html>
