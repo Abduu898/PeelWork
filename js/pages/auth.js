@@ -7,7 +7,7 @@ document.querySelector('#authTab').addEventListener('shown.bs.tab', (event) => {
   description.textContent = registering
     ? 'Create your candidate account and start applying.'
     : 'Your opportunities and applications in one place.';
-  document.title = `JobBoard — ${registering ? 'Register' : 'Sign in'}`;
+  document.title = `PeelWork — ${registering ? 'Register' : 'Sign in'}`;
 });
 
 for (const [controlId, passwordId] of [['show-login-password', 'loginPassword'], ['show-register-password', 'regPassword']]) {

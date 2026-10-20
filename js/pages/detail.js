@@ -8,7 +8,7 @@ if (!id || !/^\d+$/.test(id)) {
   content.textContent = 'Choose a job from the board to see its details.';
 } else {
   getJob(id).then((job) => {
-    document.title = `${job.title} — JobBoard`;
+    document.title = `${job.title} — PeelWork`;
     content.innerHTML = jobDetails(job);
     // This page has one primary heading, unlike the inline board panel.
     const title = content.querySelector('#details-title');

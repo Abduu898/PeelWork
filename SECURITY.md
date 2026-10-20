@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Only the current main branch of HireLoop is actively maintained with security updates.
+Only the current main branch of PeelWork is actively maintained with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -10,7 +10,7 @@ Only the current main branch of HireLoop is actively maintained with security up
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within **HireLoop**, please follow responsible disclosure guidelines:
+If you discover a security vulnerability within **PeelWork**, please follow responsible disclosure guidelines:
 
 1. **Do NOT open a public GitHub Issue.**
 2. Send an email to the repository owner or submit a private security advisory through GitHub.

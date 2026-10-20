@@ -1,6 +1,6 @@
 # Small frontend steps
 
-Based on `Proofwork.txt`. Current priority: frontend, preserving the teammate's design.
+Based on the original project notes. Current priority: PeelWork frontend refinement.
 
 ## Step 1 — board foundation (implemented)
 

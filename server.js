@@ -293,5 +293,5 @@ app.delete('/admin/ads/:id', requireAuth, requireRole('super_admin'), async (req
 });
 
 app.listen(PORT, () => {
-  console.log(`HireLoop API running on http://localhost:${PORT}`);
+  console.log(`PeelWork API running on http://localhost:${PORT}`);
 });

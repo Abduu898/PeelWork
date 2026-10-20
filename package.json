@@ -1,7 +1,7 @@
 {
   "name": "job-board-bootstrap",
   "version": "1.0.0",
-  "description": "PROOFWORK job board — incremental development with the original UI",
+  "description": "PeelWork job marketplace MVP with a clean, high-signal hiring experience",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",

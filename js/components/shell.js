@@ -11,7 +11,7 @@ const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
     <div class="container">
       <a class="navbar-brand fw-extrabold fs-4 d-flex align-items-center gap-2" href="index.html">
         <span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span>
-        <span class="fw-bold tracking-tight">JobBoard</span>
+        <span class="fw-bold tracking-tight">PeelWork</span>
       </a>
       <button class="navbar-toggler border-2 border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -31,14 +31,14 @@ const footer = `<footer class="site-footer mt-auto">
     <div class="container py-5">
       <div class="row g-4">
         <div class="col-lg-5">
-          <a class="footer-brand text-decoration-none" href="index.html"><span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span> JobBoard</a>
-          <p class="small footer-muted mt-3 mb-0">A simpler place to find good work and good people.</p>
+          <a class="footer-brand text-decoration-none" href="index.html"><span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span> PeelWork</a>
+          <p class="small footer-muted mt-3 mb-0">The short route to good work and good people.</p>
         </div>
         <div class="col-6 col-lg-2"><h2 class="footer-heading">Explore</h2><a href="jobs.html">Find jobs</a><a href="login.html">Create account</a></div>
         <div class="col-6 col-lg-2"><h2 class="footer-heading">For teams</h2><a href="login.html">Hire with us</a><a href="login.html">Company login</a></div>
-        <div class="col-lg-3"><h2 class="footer-heading">Say hello</h2><p class="small footer-muted">Questions, ideas, or just want to talk?</p><div class="d-flex gap-2"><a class="footer-social" href="https://github.com/Abduu898/job-board-bootstrap" aria-label="JobBoard on GitHub"><i class="bi bi-github"></i></a><a class="footer-social" href="mailto:hello@jobboard.local" aria-label="Email JobBoard"><i class="bi bi-envelope"></i></a></div></div>
+        <div class="col-lg-3"><h2 class="footer-heading">Say hello</h2><p class="small footer-muted">Questions, ideas, or just want to talk?</p><div class="d-flex gap-2"><a class="footer-social" href="https://github.com/Abduu898/job-board-bootstrap" aria-label="PeelWork on GitHub"><i class="bi bi-github"></i></a><a class="footer-social" href="mailto:hello@peelwork.local" aria-label="Email PeelWork"><i class="bi bi-envelope"></i></a></div></div>
       </div>
-      <div class="footer-bottom mt-5 pt-3"><span class="small footer-muted">&copy; 2026 JobBoard. Take your time.</span><span class="small footer-muted">Made with care.</span></div>
+      <div class="footer-bottom mt-5 pt-3"><span class="small footer-muted">&copy; 2026 PeelWork. Take your time.</span><span class="small footer-muted">Made with care.</span></div>
     </div>
   </footer>`;
 for (const [selector, markup] of [['#site-navigation', navigation], ['#site-footer', footer]]) {

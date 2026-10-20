@@ -1,6 +1,6 @@
-# JobBoard / HireLoop
+# PeelWork
 
-A lightweight job-board MVP built with Express, MySQL, Bootstrap, and vanilla JavaScript. The project supports public job browsing, candidate applications, company-owned listings, and separate super-admin management.
+PeelWork is a lightweight job marketplace MVP built with Express, MySQL, Bootstrap, and vanilla JavaScript. Its vibe is simple: strip away long forms, ghosting, and generic filters so people can get to better matches faster.
 
 ## Current phase
 
@@ -15,9 +15,9 @@ The frontend and backend are connected. The current MVP includes:
 - Application inboxes for company admins.
 - Application status updates: `pending`, `reviewed`, `accepted`, and `rejected`.
 - Super-admin access to all companies, company admins, and listings.
-- Responsive Bootstrap UI with the yellow neo-brutalist visual style.
+- Responsive Bootstrap UI with PeelWork's yellow neo-brutalist visual style.
 
-The application flow uses a name, email, optional resume filename, and message. Resume files are not uploaded yet.
+The application flow uses a name, email, optional local resume selection, and message. The resume filename is shown during review but is not uploaded or saved yet.
 
 ## Requirements
 
@@ -66,6 +66,12 @@ http://127.0.0.1:3000/
 ```
 
 Keep the server terminal running while using the application. Stopping Node causes the browser to show `ERR_CONNECTION_REFUSED`.
+
+The dedicated job marketplace is available at:
+
+```text
+http://127.0.0.1:3000/jobs.html
+```
 
 The older static frontend preview is still available with:
 
@@ -167,7 +173,7 @@ npm test
 For an integrated manual check:
 
 1. Start the server with `npm start`.
-2. Open the public board.
+2. Open the public board and select **Find Jobs**, or open `jobs.html` directly.
 3. Log in as the candidate account and submit an application.
 4. Confirm it appears in the candidate dashboard.
 5. Log in as a company admin and confirm it appears in that company’s application inbox.
