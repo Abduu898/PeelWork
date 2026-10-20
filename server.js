@@ -30,10 +30,16 @@ function createSession(user) {
 }
 
 function requireAuth(req, res, next) {
-  const token = req.headers.authorization?.replace('Bearer ', '');
+  const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
   const user = token ? sessions.get(token) : null;
   if (!user) return res.status(401).json({ error: 'Authentication required.' });
   req.user = user;
+  next();
+}
+
+function attachSessionUser(req, res, next) {
+  const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
+  req.user = token ? sessions.get(token) || null : null;
   next();
 }
 
@@ -85,13 +91,18 @@ app.get('/ads/:id', async (req, res) => {
   }
 });
 
-app.post('/ads/:id/applications', async (req, res) => {
+app.post('/ads/:id/applications', attachSessionUser, async (req, res) => {
   try {
     const { first_name, last_name, email, message } = req.body;
-    if (!first_name || !email) return res.status(400).json({ error: 'First name and email are required.' });
+    if (req.user && req.user.role !== 'candidate') {
+      return res.status(403).json({ error: 'Only candidate accounts can submit applications.' });
+    }
+    const applicantName = req.user?.role === 'candidate' ? req.user.name : (last_name ? `${first_name} ${last_name}` : first_name);
+    const applicantEmail = req.user?.role === 'candidate' ? req.user.email : email;
+    if (!applicantName || !applicantEmail) return res.status(400).json({ error: 'First name and email are required.' });
     const [result] = await db.query(
       'INSERT INTO applications (ad_id, applicant_name, applicant_email, message) VALUES (?, ?, ?, ?)',
-      [req.params.id, last_name ? `${first_name} ${last_name}` : first_name, email, message || null]
+      [req.params.id, applicantName, applicantEmail, message || null]
     );
     res.status(201).json({ message: 'Application submitted successfully!', application_id: result.insertId });
   } catch (err) {

@@ -40,7 +40,7 @@
             <a id="start-application" href="#application-studio" class="btn btn-yellow w-100 py-3 mb-3 fs-6" hidden>Build your application <i class="bi bi-arrow-down ms-1" aria-hidden="true"></i></a>
             
             <div class="p-3 bg-light rounded-3 border border-dark border-2 text-center">
-              <p class="small text-muted fw-semibold mb-0"><i class="bi bi-shield-check text-dark me-1"></i> Application preview · Nothing is sent</p>
+              <p class="small text-muted fw-semibold mb-0"><i class="bi bi-shield-check text-dark me-1"></i> Simple application · No account required</p>
             </div>
           </div>
         </div>
@@ -48,10 +48,10 @@
       </div>
       <section id="application-studio" class="custom-card p-4 p-md-5 mt-4" aria-labelledby="application-heading" hidden>
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
-          <div><span class="custom-badge-yellow small px-2 py-1">Application Studio</span><h2 id="application-heading" class="h3 fw-bold mt-3 mb-2">Build your application</h2><p id="application-role" class="text-muted fw-medium mb-0"></p></div>
-          <span class="custom-badge-dark small px-3 py-2">Guest preview</span>
+          <div><span class="custom-badge-yellow small px-2 py-1">Application</span><h2 id="application-heading" class="h3 fw-bold mt-3 mb-2">Apply for this role</h2><p id="application-role" class="text-muted fw-medium mb-0"></p></div>
+          <span id="application-mode" class="custom-badge-dark small px-3 py-2">Guest application</span>
         </div>
-        <p class="small text-secondary">Complete your details and message to review and submit your application. You can apply as a guest or sign in to track it from your dashboard.</p>
+        <p id="application-intro" class="small text-secondary">Complete your details and message to review and submit your application. You can apply as a guest or sign in to track it from your dashboard.</p>
         <p class="small fw-bold border-top border-bottom border-2 border-dark py-3 my-4">1. Your details <span aria-hidden="true">→</span> 2. Review</p>
         <form id="application-form">
           <fieldset id="application-fields" disabled>
@@ -72,7 +72,7 @@
         </form>
         <section id="application-review" class="border-top border-2 border-dark mt-4 pt-4" aria-labelledby="review-heading" hidden>
           <h3 id="review-heading" class="h4 fw-bold" tabindex="-1">Review your application</h3>
-          <p class="preview-feedback small">Application submitted successfully. Candidates can track applications from their dashboard.</p>
+          <p class="preview-feedback small">Candidates can track submitted applications from their dashboard.</p>
           <div id="application-summary"></div>
           <div class="d-flex gap-2 flex-wrap mt-4"><button type="button" id="edit-application" class="btn btn-outline-dark">Edit application</button></div>
         </section>
