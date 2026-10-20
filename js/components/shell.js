@@ -50,6 +50,6 @@ toggler.setAttribute('aria-label', 'Toggle navigation');
 if (currentPage === 'index.html') {
   const notice = document.createElement('p');
   notice.className = 'small text-muted fw-medium mb-0';
-  notice.textContent = 'Frontend preview · Fictional opportunities.';
+  notice.textContent = 'Fresh roles, better matches.';
   document.querySelector('main .container').append(notice);
 }

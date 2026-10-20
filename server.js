@@ -87,14 +87,11 @@ app.get('/ads/:id', async (req, res) => {
 
 app.post('/ads/:id/applications', async (req, res) => {
   try {
-    const { first_name, last_name, email, message, proof_pack } = req.body;
+    const { first_name, last_name, email, message } = req.body;
     if (!first_name || !email) return res.status(400).json({ error: 'First name and email are required.' });
-    if (proof_pack !== undefined && typeof proof_pack !== 'string') {
-      return res.status(400).json({ error: 'Proof pack must be a JSON string.' });
-    }
     const [result] = await db.query(
-      'INSERT INTO applications (ad_id, applicant_name, applicant_email, message, proof_pack) VALUES (?, ?, ?, ?, ?)',
-      [req.params.id, last_name ? `${first_name} ${last_name}` : first_name, email, message || null, proof_pack || null]
+      'INSERT INTO applications (ad_id, applicant_name, applicant_email, message) VALUES (?, ?, ?, ?)',
+      [req.params.id, last_name ? `${first_name} ${last_name}` : first_name, email, message || null]
     );
     res.status(201).json({ message: 'Application submitted successfully!', application_id: result.insertId });
   } catch (err) {

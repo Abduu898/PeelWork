@@ -41,19 +41,9 @@ function render() {
   </tr>`).join('');
   document.querySelector('#admin-applications').innerHTML = applications.length
     ? applications.map((application) => {
-      let proofPack = [];
-      try {
-        proofPack = application.proof_pack ? JSON.parse(application.proof_pack) : [];
-      } catch {
-        proofPack = [];
-      }
-      const proofChips = proofPack.length
-        ? proofPack.map((proof) => `<span class="proof-chip"><i class="bi bi-check2" aria-hidden="true"></i>${text(proof.title || proof.id)}</span>`).join('')
-        : '<span class="small text-muted">No Proof Pack items selected.</span>';
       return `<details class="application-item p-3">
       <summary class="fw-bold">${text(application.applicant_name)} <span class="small fw-normal">· ${text(application.job_title)}</span> <span class="status-badge ms-2" data-status="${text(application.status || 'pending')}">${text(application.status || 'pending')}</span></summary>
       <div class="pt-3"><p class="small text-muted">${text(application.applicant_email)}</p><p class="small job-description">${text(application.message || 'No message provided.')}</p>
-        <p class="small fw-bold mb-2">Proof Pack</p><div class="d-flex flex-wrap gap-2 mb-3">${proofChips}</div>
         <label class="form-label fw-bold small" for="status-${application.id}">Status</label>
         <select id="status-${application.id}" class="form-select form-select-sm" data-status-id="${application.id}">
           ${['pending', 'reviewed', 'accepted', 'rejected'].map((status) => `<option value="${status}"${status === application.status ? ' selected' : ''}>${status}</option>`).join('')}

@@ -35,7 +35,7 @@
         <div class="col-lg-4">
           <div class="custom-card p-4 sticky-top" style="top: 100px;">
             <h2 class="h5 fw-bold mb-3">Show what you can bring.</h2>
-            <p class="small text-secondary fw-medium mb-4">Introduce yourself and choose relevant work for your Proof Pack. A portfolio is optional; you can continue as a guest.</p>
+            <p class="small text-secondary fw-medium mb-4">Introduce yourself and explain why this opportunity interests you. You can continue as a guest.</p>
             
             <a id="start-application" href="#application-studio" class="btn btn-yellow w-100 py-3 mb-3 fs-6" hidden>Build your application <i class="bi bi-arrow-down ms-1" aria-hidden="true"></i></a>
             
@@ -51,8 +51,8 @@
           <div><span class="custom-badge-yellow small px-2 py-1">Application Studio</span><h2 id="application-heading" class="h3 fw-bold mt-3 mb-2">Build your application</h2><p id="application-role" class="text-muted fw-medium mb-0"></p></div>
           <span class="custom-badge-dark small px-3 py-2">Guest preview</span>
         </div>
-        <p class="small text-secondary">Use sample details to explore the form. You can review your application here; nothing is sent or saved. <a class="text-dark fw-bold" href="login.html">Sign-in preview</a></p>
-        <p class="small fw-bold border-top border-bottom border-2 border-dark py-3 my-4">1. Your details <span aria-hidden="true">→</span> 2. Optional Proof Pack <span aria-hidden="true">→</span> 3. Review</p>
+        <p class="small text-secondary">Complete your details and message to review your application. You can continue as a guest; nothing is sent or saved in this preview.</p>
+        <p class="small fw-bold border-top border-bottom border-2 border-dark py-3 my-4">1. Your details <span aria-hidden="true">→</span> 2. Review</p>
         <form id="application-form">
           <fieldset id="application-fields" disabled>
             <legend class="h5 fw-bold mb-3">Your details</legend>
@@ -63,14 +63,10 @@
               <div class="col-md-6"><label for="resume" class="form-label fw-bold small">Resume (optional PDF, up to 5 MB)</label><input class="form-control" type="file" id="resume" accept="application/pdf,.pdf" aria-describedby="resume-help"><p id="resume-help" class="small text-muted mt-2 mb-0">The preview only displays the file name. No file is uploaded.</p></div>
               <div class="col-12"><label for="message" class="form-label fw-bold small">Your message</label><textarea class="form-control" id="message" name="message" rows="4" maxlength="3000" placeholder="Tell the team why this opportunity interests you and what you could contribute." required></textarea></div>
             </div>
-            <fieldset class="border-top border-2 border-dark pt-4 mb-4">
-              <legend class="h5 fw-bold pt-3">Choose your Proof Pack <span class="small text-muted fw-normal">(optional)</span></legend>
-              <p class="small text-secondary">Select relevant work from this sample portfolio. You can review your application with no proofs attached.</p>
-              <p class="small fw-bold mb-2">Skills mentioned in this opportunity</p><div id="role-requirements" class="d-flex flex-wrap gap-2 mb-3"></div>
-              <p class="small text-muted">Skill tags describe linked evidence; they do not verify proficiency.</p>
-              <div id="proof-options" class="row g-3"></div>
-              <p id="proof-count" class="small fw-bold mt-3 mb-0" role="status">0 proofs selected</p>
-            </fieldset>
+            <div class="border-top border-2 border-dark pt-4 mb-4">
+              <p class="small fw-bold mb-2">Skills mentioned in this opportunity</p>
+              <div id="role-requirements" class="d-flex flex-wrap gap-2"></div>
+            </div>
             <button type="submit" class="btn btn-yellow px-4 py-2">Review application</button>
           </fieldset>
         </form>

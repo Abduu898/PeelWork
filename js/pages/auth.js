@@ -5,8 +5,8 @@ document.querySelector('#authTab').addEventListener('shown.bs.tab', (event) => {
   const registering = event.target.id === 'register-tab';
   heading.textContent = registering ? 'Start with your work' : 'Welcome back';
   description.textContent = registering
-    ? 'Build your candidate profile, one piece of evidence at a time.'
-    : 'Your opportunities, applications, and proof portfolio in one place.';
+    ? 'Create your candidate account and start applying.'
+    : 'Your opportunities and applications in one place.';
   document.title = `JobBoard — ${registering ? 'Register' : 'Sign in'}`;
 });
 
