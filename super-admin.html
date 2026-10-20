@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobBoard — Super admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <div id="site-navigation"></div>
+  <main class="flex-grow-1 py-5"><div class="container">
+    <p class="small text-muted fw-medium mb-4">Super-admin area · Manage companies and company accounts.</p>
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+      <div><h1 class="h2 fw-bold mb-1">Super-admin dashboard</h1><p class="text-muted small fw-semibold mb-0">Manage the platform across all companies.</p></div>
+      <button class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#adminModal">Create company admin</button>
+    </div>
+    <p id="super-feedback" class="preview-feedback small" role="status" hidden></p>
+    <div class="custom-card p-4"><h2 class="h5 fw-bold mb-4">Companies</h2><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Company</th><th>Location</th><th>Description</th></tr></thead><tbody id="company-list"></tbody></table></div></div>
+  </div></main>
+  <div class="modal fade" id="adminModal" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h2 class="h5 fw-bold" id="adminModalLabel">Create company admin</h2><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><form id="admin-form"><div class="modal-body">
+    <label class="form-label small fw-bold" for="adminName">Name</label><input id="adminName" class="form-control mb-3" required>
+    <label class="form-label small fw-bold" for="adminEmail">Email</label><input id="adminEmail" type="email" class="form-control mb-3" required>
+    <label class="form-label small fw-bold" for="adminPassword">Temporary password</label><input id="adminPassword" type="password" class="form-control mb-3" minlength="8" required>
+    <label class="form-label small fw-bold" for="adminCompany">Company ID</label><input id="adminCompany" type="number" class="form-control" min="1" required>
+  </div><div class="modal-footer"><button type="submit" class="btn btn-yellow">Create account</button></div></form></div></div></div>
+  <div id="site-footer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/components/shell.js"></script>
+  <script type="module" src="js/pages/super-admin.js"></script>
+</body>
+</html>
