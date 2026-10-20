@@ -3,140 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job Board - Authentication</title>
-  
-  <!-- Bootstrap 5 CSS -->
+  <title>JobBoard — Sign in</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
-
-  <!-- 1. NAVBAR -->
-  <nav class="navbar navbar-expand-lg py-3">
-    <div class="container">
-      <a class="navbar-brand fw-extrabold fs-4 d-flex align-items-center gap-2" href="index.html">
-        <span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span>
-        <span class="fw-bold tracking-tight">JobBoard</span>
-      </a>
-      <button class="navbar-toggler border-2 border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center gap-2 mt-3 mt-lg-0">
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="index.html">Find Jobs</a></li>
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark active" href="login.html">Login</a></li>
-          <li class="nav-item ms-lg-2 w-100 w-lg-auto">
-            <a class="btn btn-yellow px-4 w-100" href="admin.html">Post a Job</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- 2. AUTHENTICATION CONTAINER -->
+  <div id="site-navigation"></div>
   <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
     <div class="container" style="max-width: 480px;">
-      
+      <p class="small text-muted fw-medium mb-4" role="note">Frontend preview · You can check the forms. Account creation and sign-in are coming soon.</p>
       <div class="custom-card p-4 p-md-5">
-        
-        <!-- Header -->
         <div class="text-center mb-4">
-          <h1 class="h3 fw-extrabold mb-1" style="font-weight: 800;">Welcome back</h1>
-          <p class="text-muted small fw-medium">Join thousands of tech talents and hiring companies</p>
+          <h1 id="auth-heading" class="h3 fw-bold mb-2">Welcome back</h1>
+          <p id="auth-description" class="text-muted small fw-medium">Your opportunities, applications, and proof portfolio in one place.</p>
         </div>
-
-        <!-- Bootstrap Nav Tabs (Toggle Login / Register) -->
-        <ul class="nav nav-pills nav-fill mb-4 p-1 bg-light border border-2 border-dark rounded-3 auth-tabs" id="authTab" role="tablist">
+        <ul class="nav nav-pills nav-fill mb-4 p-1 bg-light border border-2 border-dark rounded-3 auth-tabs" id="authTab" role="tablist" aria-label="Account access">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active fw-bold text-dark rounded-2" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-pane" type="button" role="tab">
-              Sign In
-            </button>
+            <button class="nav-link active fw-bold rounded-2" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-pane" type="button" role="tab" aria-controls="login-pane" aria-selected="true">Sign In</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link fw-bold text-dark rounded-2" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-pane" type="button" role="tab">
-              Register
-            </button>
+            <button class="nav-link fw-bold rounded-2" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-pane" type="button" role="tab" aria-controls="register-pane" aria-selected="false">Register</button>
           </li>
         </ul>
-
-        <!-- Tab Content -->
-        <div class="tab-content" id="authTabContent">
-          
-          <!-- TAB 1: LOGIN FORM -->
-          <div class="tab-pane fade show active" id="login-pane" role="tabpanel" aria-labelledby="login-tab">
-            <form>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="login-pane" role="tabpanel" aria-labelledby="login-tab" tabindex="0">
+            <form id="login-form">
               <div class="mb-3">
                 <label for="loginEmail" class="form-label fw-bold small">Email address</label>
-                <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
+                <input type="email" class="form-control" id="loginEmail" autocomplete="username" maxlength="254" placeholder="name@example.com" required>
               </div>
               <div class="mb-3">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <label for="loginPassword" class="form-label fw-bold small mb-0">Password</label>
-                  <a href="#" class="text-muted small text-decoration-none">Forgot?</a>
-                </div>
-                <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
+                <label for="loginPassword" class="form-label fw-bold small">Password</label>
+                <input type="password" class="form-control" id="loginPassword" autocomplete="current-password" required>
               </div>
               <div class="form-check mb-4">
-                <input class="form-check-input border-2 border-dark" type="checkbox" id="rememberMe">
-                <label class="form-check-label small fw-medium" for="rememberMe">Remember me for 30 days</label>
+                <input class="form-check-input border-2 border-dark" type="checkbox" id="show-login-password" data-show-password="loginPassword">
+                <label class="form-check-label small fw-medium" for="show-login-password">Show password</label>
               </div>
-              <button type="submit" class="btn btn-yellow w-100 py-2.5">Sign In</button>
+              <button type="submit" class="btn btn-yellow w-100 py-2">Check sign-in form</button>
+              <p class="small text-muted mt-3 mb-0">Candidates and administrators use this sign-in page.</p>
+              <p id="login-feedback" class="preview-feedback small mt-3 mb-0" role="status" tabindex="-1" hidden></p>
             </form>
           </div>
-
-          <!-- TAB 2: REGISTER FORM -->
-          <div class="tab-pane fade" id="register-pane" role="tabpanel" aria-labelledby="register-tab">
-            <form>
-              <!-- Role Selector -->
+          <div class="tab-pane fade" id="register-pane" role="tabpanel" aria-labelledby="register-tab" tabindex="0">
+            <form id="register-form">
+              <p class="small text-secondary fw-medium mb-4">Create a candidate profile to collect your work and build a Proof Pack for each opportunity.</p>
               <div class="mb-3">
-                <label class="form-label fw-bold small d-block">I want to...</label>
-                <div class="btn-group w-100" role="group">
-                  <input type="radio" class="btn-check" name="roleOptions" id="roleCandidate" checked>
-                  <label class="btn btn-outline-dark fw-bold btn-sm py-2" for="roleCandidate">Find a Job</label>
-                  
-                  <input type="radio" class="btn-check" name="roleOptions" id="roleEmployer">
-                  <label class="btn btn-outline-dark fw-bold btn-sm py-2" for="roleEmployer">Hire Talent</label>
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="regName" class="form-label fw-bold small">Full Name</label>
-                <input type="text" class="form-control" id="regName" placeholder="Jane Doe" required>
+                <label for="regName" class="form-label fw-bold small">Full name</label>
+                <input type="text" class="form-control" id="regName" autocomplete="name" maxlength="120" placeholder="Jane Doe" required>
               </div>
               <div class="mb-3">
-                <label for="regEmail" class="form-label fw-bold small">Work Email</label>
-                <input type="email" class="form-control" id="regEmail" placeholder="jane@company.com" required>
+                <label for="regEmail" class="form-label fw-bold small">Email address</label>
+                <input type="email" class="form-control" id="regEmail" autocomplete="email" maxlength="254" placeholder="jane@example.com" required>
               </div>
-              <div class="mb-4">
-                <label for="regPassword" class="form-label fw-bold small">Create Password</label>
-                <input type="password" class="form-control" id="regPassword" placeholder="Minimum 8 characters" required>
+              <div class="mb-3">
+                <label for="regPassword" class="form-label fw-bold small">Create password</label>
+                <input type="password" class="form-control" id="regPassword" autocomplete="new-password" minlength="8" aria-describedby="password-help" required>
+                <p id="password-help" class="small text-muted mt-2 mb-0">Use at least 8 characters. Use sample details while testing this preview.</p>
               </div>
-              <button type="submit" class="btn btn-yellow w-100 py-2.5">Create Account</button>
+              <div class="form-check mb-4">
+                <input class="form-check-input border-2 border-dark" type="checkbox" id="show-register-password" data-show-password="regPassword">
+                <label class="form-check-label small fw-medium" for="show-register-password">Show password</label>
+              </div>
+              <button type="submit" class="btn btn-yellow w-100 py-2">Check registration form</button>
+              <p id="register-feedback" class="preview-feedback small mt-3 mb-0" role="status" tabindex="-1" hidden></p>
             </form>
           </div>
-
         </div>
-
+        <div class="border-top border-2 border-dark pt-4 mt-4 text-center">
+          <a href="index.html" class="text-dark fw-bold text-decoration-none small">Continue browsing as a guest <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+          <p class="small text-muted mt-2 mb-0">You can apply without an account or a portfolio.</p>
+        </div>
       </div>
-
     </div>
   </main>
-
-  <!-- 3. FOOTER -->
-  <footer class="bg-white border-top border-2 border-dark py-4 mt-auto">
-    <div class="container text-center text-md-between d-md-flex align-items-center">
-      <p class="mb-2 mb-md-0 text-dark fw-medium small">&copy; 2026 JobBoard. All rights reserved.</p>
-      <div>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small me-3">Privacy Policy</a>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small">Terms of Service</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Bootstrap 5 JS Bundle -->
+  <div id="site-footer"></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/components/shell.js"></script>
+  <script type="module" src="js/pages/auth.js"></script>
 </body>
 </html>

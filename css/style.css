@@ -30,6 +30,12 @@ body {
 
 /* Custom Yellow Buttons */
 .btn-yellow {
+  --bs-btn-active-bg: var(--brand-yellow);
+  --bs-btn-active-color: var(--brand-dark);
+  --bs-btn-active-border-color: var(--brand-dark);
+  --bs-btn-disabled-bg: var(--brand-yellow);
+  --bs-btn-disabled-color: var(--brand-dark);
+  --bs-btn-disabled-border-color: var(--brand-dark);
   background-color: var(--brand-yellow);
   color: var(--brand-dark);
   border: 2px solid var(--brand-dark);
@@ -134,4 +140,24 @@ body {
   background-color: var(--brand-dark) !important;
   color: #FFFFFF !important;
   border: 1px solid var(--brand-dark);
+}
+
+/* Small usability additions; the original visual design stays above. */
+.job-description { white-space: pre-line; }
+.navbar-nav .nav-link { white-space: nowrap; }
+.preview-feedback { border-left: 4px solid var(--brand-dark); background: #f5f5f5; padding: 12px; }
+.admin-tabs .nav-link { color: var(--brand-dark); border: 2px solid transparent; }
+.admin-tabs .nav-link.active { color: var(--brand-dark); background: var(--brand-yellow); border-color: var(--brand-dark); }
+.proof-option { cursor: pointer; background: #fff; }
+.proof-option:has(input:checked) { background: #fffed9; box-shadow: 3px 3px 0 var(--brand-dark); }
+#application-studio, #application-review { scroll-margin-top: 110px; }
+#job-details { scroll-margin-top: 100px; }
+:focus-visible { outline: 3px solid var(--brand-dark); outline-offset: 4px; }
+#jobs-status:empty { display: none; }
+@media (max-width: 575.98px) {
+  #job-count { font-size: 0.8rem !important; text-align: center; }
+  #job-search input { min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
 }

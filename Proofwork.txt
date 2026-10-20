@@ -1,0 +1,754 @@
+PROOFWORK
+The complete development roadmap for our EPITECH Job Board project
+Bro, we're going to build something much more interesting than a conventional job board.
+I've considered the ideas we discussed, the weaknesses of each approach, and the requirements in both EPITECH documents.
+My proposed direction is PROOFWORK: an evidence-first job platform where people demonstrate their abilities instead of relying entirely on a résumé.
+We're not going to build LinkedIn with a different color scheme. We're going to rethink one part of the recruitment process, then build an entire working product around it.
+Our mission
+
+Help early-career applicants discover opportunities, understand what employers need, demonstrate relevant skills through real projects, and submit stronger applications with evidence attached.
+1. What exactly are we building?
+PROOFWORK: Show your work. Find your place.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11
+
+
+
+
+
+
+
+
+
+Visual inspiration for the product's direction, not final designs.We're building a full-stack recruitment platform with three connected experiences:
+
+The Opportunity Board
+Users discover jobs and internships, filter opportunities, open detailed listings, and submit applications. This satisfies EPITECH's central job board requirement.
+
+
+
+The Proof Portfolio
+Applicants link projects, repositories, demos, certifications, and other evidence to specific skills. They can choose which evidence to attach to each application.
+
+
+
+The Opportunity Intelligence Layer
+An optional AI component analyzes job requirements, explains skill gaps, and helps applicants identify relevant evidence. It supports the process without making hiring decisions.
+
+
+
+The defining experience
+A candidate sees this job:
+Junior AI Engineer, Python, SQL, Docker
+Instead of merely clicking Apply and uploading a CV, the system shows:
+- Python: related evidence attached from their Hangman project.
+- SQL: no evidence attached yet.
+- Docker: related evidence attached from a containerized application.
+- Suggested next step: attach a database project demonstrating SQL.
+- Application: choose the relevant projects, write a message and submit.
+These are explanatory associations, not verified assessments of the candidate's ability.
+The distinction: Traditional job boards organize opportunities around job titles and keywords. PROOFWORK would organize the application experience around requirements and supporting evidence.
+We are not claiming no other platform has ever explored this. Our goal is to execute the idea coherently and build something technically substantial.
+2. The non-negotiable EPITECH requirements
+The assignment explicitly requires an SQL database, a JavaScript-based job board, a REST API, applications, authentication, an admin page and polished design. We can extend these features but not replace them. jobBoard-project.pdf
+ jobBoard-project.pdf
+
+Required feature	Our implementation
+SQL database	PostgreSQL
+Job advertisements	Opportunity Board
+Companies and people	Company records and user accounts
+Applications	Evidence-supported application form
+REST API with CRUD	Node.js and Express
+Learn more without reload or popup	Inline job-details panel
+Authentication	Candidate/admin login and account management
+Admin dashboard	Protected management interface
+Polished frontend	Responsive React application
+Local testing	Local API, database, frontend and test suite
+README	Setup, schema, routes and usage instructions
+The bootstrap document also asks us to practice SQL modelling, REST routes and asynchronous frontend requests first. We'll treat that as our first technical checkpoint rather than skipping straight to advanced features. jobBoard-bootstrap.pdf
+ jobBoard-bootstrap.pdf
+
+
+3. The complete application: pages and features
+We're designing the product around two roles: applicants and administrators. Visitors will also be able to browse and apply without creating an account.
+We won't introduce separate employer accounts in version 1 because EPITECH only requires an admin-controlled management interface. An employer dashboard can be added later.
+A. Public and candidate-facing pages
+
+
+
+
+
+
+
+
+
+01. Landing page
+The introduction to PROOFWORK. Explain the problem, showcase how evidence-based applications work, and provide clear entry points to explore jobs or create a profile.
+Main actions: Explore opportunities, Build your proof portfolio.
+
+
+
+
+
+
+
+
+
+
+
+
+02. Opportunity Board
+The central page. It features searchable job listings, filters for location, remote work, employment type and skills, plus pagination.
+Each job shows its company, title, description preview, location, employment information and two actions: Learn more and Apply.
+
+
+
+
+
+
+
+
+
+
+
+
+03. Job details experience
+Clicking Learn more reveals a full detail panel alongside the listings or expands an inline section. No popup and no full page reload.
+Full description, salary if provided, location, working hours, employment type, company and required skills.
+
+
+
+
+
+
+
+
+
+
+
+
+04. Proof Portfolio
+Authenticated users add projects and other relevant evidence, such as GitHub repositories, live demos, design work or certifications.
+Each proof has a title, description, URL, type and skill tags. Users choose what to share with applications.
+
+
+
+
+
+
+
+
+
+
+
+
+05. Application Studio
+Applicants fill in their details, write a message and optionally attach relevant proofs. Signed-in users have their personal information prefilled.
+The form validates inputs, submits through our API and saves everything in SQL.
+
+
+
+
+
+
+
+
+
+
+
+
+06. Candidate Dashboard
+Personal account information, saved application history, attached evidence and application status, where the admin has provided an update.
+Includes account editing and a way to manage the user's proofs.
+
+
+
+We'll also build proper Login, Register and Account Settings pages. A successful login will direct ordinary users to the job board and administrators to the admin interface, as specified in the assignment. jobBoard-project.pdf
+
+B. The administrative experience
+The admin panel is not going to be an afterthought.
+
+
+
+
+
+
+
+dribbble.com
+
+
+It will include:
+Admin section	Capabilities
+Overview	Counts for jobs, companies, applicants and applications
+Jobs	Create, edit, publish, archive and delete advertisements
+Companies	Manage company records
+People	View and manage applicant/contact records and accounts
+Applications	Review messages, contact details and attached proofs
+Skills	Manage the reusable skill taxonomy and job requirements
+Data management	Paginated CRUD interfaces for the remaining required records
+All privileged operations will be checked on the backend, not simply hidden in the frontend.
+C. The feature that makes the product different: Proof Packs
+Rather than automatically attaching an entire generic portfolio, the applicant creates a Proof Pack for each job.
+AI Engineering Internship
+Example job requirements
+Prototype
+
+Python
+REST APIs
+Docker
+SQL
+
+
+Choose evidence to attach
+[x] 
+Python Game Engine
+Python, application architecture
+
+
+[x] 
+Containerized API
+REST APIs, Docker
+
+
+[ ] 
+SQL Analytics Project
+SQL, data modelling
+
+
+Your Proof Pack
+2 selected
+
+Python Game Engine · Containerized API
+
+This is a small interactive example, not a connected application form. In the real product, the selected proofs become part of a saved application.
+What's important here is that applicants aren't forced to complete extra challenges. Existing projects are valuable evidence too. A candidate without a public portfolio must still be able to apply.
+For each submitted application, we'll preserve a snapshot of the selected proof titles, descriptions and URLs so the original submission remains understandable even if the candidate later changes their portfolio.
+4. The core user journeys
+Candidate journey
+1. Visit the job board and search for an internship
+2. Open a listing and read the complete requirements
+3. Sign in or continue as a guest
+4. Compare requirements to portfolio evidence, if signed in
+5. Select relevant proofs and write an application message
+6. Submit the application and receive confirmation
+7. View application history if signed in
+
+Admin journey
+1. Sign in with administrator credentials
+2. Create a company and publish a job
+3. Define its required and optional skills
+4. Receive applications and review attached evidence
+5. Update the internal application status and manage listings
+
+These two flows will form the basis of our integration tests and the final demonstration.
+
+5. The intelligence layer: what the AI will actually do
+This is where we need discipline.
+We should not make AI the foundation of the product. The platform must work when the AI service is disabled.
+I propose three AI features, implemented in order.
+AI Feature 1: Job requirement extraction
+An administrator creates a job advertisement and enters its description.
+AI can suggest structured information:
+Example input
+"We're looking for a backend engineering intern comfortable with Python, REST APIs and SQL. Docker experience would be a plus."
+
+Suggested structured requirements
+Skill	Importance
+Python	Required
+REST APIs	Required
+SQL	Required
+Docker	Preferred
+The administrator reviews and approves the suggestions before publishing.
+
+
+This is useful because the skills stored in our database become consistent and searchable, instead of existing only as unstructured text.
+AI Feature 2: Explain my application readiness
+When a user examines an opportunity, the system compares the job's skills with the user's tagged evidence.
+We use deterministic database logic for the comparison, not an LLM deciding whether someone is qualified.
+The interface can show:
+- Required skill with linked evidence
+- Required skill without linked evidence
+- Preferred skill with linked evidence
+- Skills that need the candidate's attention
+AI can then explain those differences in natural language using only the job description and selected evidence.
+We must be clear that evidence linked to a skill is not the same as verified proficiency. We will not calculate an opaque employability score or automatically reject applicants.
+AI Feature 3: Turn missing evidence into a practical project
+Suppose a Python developer is interested in a position requiring SQL and Docker, but doesn't have relevant projects to show.
+AI could suggest:
+Build a containerized REST API with PostgreSQL.
+It would explain why that project is relevant, which skills it could demonstrate, and what deliverables the applicant might create.
+This is career guidance, not an additional requirement for applying.
+What we will deliberately avoid
+No AI-generated applicant rankings, no automated rejection, no fabricated job listings, and no claims that AI has verified someone's GitHub code without actually inspecting it.
+AI should also receive only the information needed for the requested feature. We won't send application phone numbers, contact details or private messages to an external model by default.
+6. SQL database: the complete proposed design
+EPITECH requires SQL tables for advertisements, companies, people and applications, with the ability to add relevant tables. Our evidence system needs additional relationships. jobBoard-project.pdf
+
+I propose 11 main tables for version 1.
+Table	Main information
+companies	ID, name, website, description, location
+people	ID, name, email, phone
+accounts	Linked person, password hash, role
+categories	ID, name
+advertisements	Company, contact person, category, title, description, salary, location, hours, type, status
+applications	Applicant, advertisement, submitted contact details, message, date, status
+skills	ID, normalized skill name
+advertisement_skills	Advertisement, skill, required/preferred
+proofs	Owner, title, description, URL, evidence type, visibility
+proof_skills	Proof, associated skill
+application_proofs	Application, selected proof and submission-time snapshot
+An account belongs to a person, but not every person needs an account. This allows guest applicants and company contacts to exist in the database without passwords.
+How the data connects
+Company
+
+
+
+Advertisement
+Linked to category, skills and contact person
+
+Application
+Applicant details, message, timestamp and status
+
+Attached proofs
+Selected evidence and preserved submission details
+
+Other key relationships:
+- One company can publish multiple advertisements.
+- One advertisement can receive many applications.
+- One person can submit multiple applications.
+- Jobs and skills have a many-to-many relationship.
+- Proofs and skills have a many-to-many relationship.
+- An application can attach multiple proofs.
+We'll implement foreign keys, appropriate unique constraints, indexes and migrations. Important indexes include job status, company, category, application date and the many-to-many relationship keys.
+The three bootstrap SQL queries
+Before building the complete system, we'll implement the queries from the bootstrap:
+1. Count advertisements belonging to each company.
+2. Find the advertisement with the most applications.
+3. Retrieve all applicants and their messages for a selected advertisement.
+This will confirm that our relational model actually works before the frontend depends on it.
+7. Backend and REST API
+We'll develop the API before building most of the UI, test each endpoint independently, and ensure that all dynamic frontend data comes through the API.
+Core API routes
+We'll use /api/v1 as the common prefix.
+Method	Route	Purpose
+GET	/ads	Paginated and filtered job listings
+GET	/ads/:id	Complete job details
+GET	/companies/:id/ads	All ads for a company
+POST	/ads	Admin creates advertisement
+PATCH	/ads/:id	Admin edits advertisement
+DELETE	/ads/:id	Admin deletes advertisement
+POST	/ads/:id/applications	Submit an application
+GET	/companies	List companies
+POST	/companies	Admin creates a company
+GET	/skills	Available skill taxonomy
+GET	/me/proofs	Authenticated user's evidence
+POST	/me/proofs	Create proof record
+PATCH	/me/proofs/:id	Update owned proof
+DELETE	/me/proofs/:id	Remove owned proof
+GET	/me/applications	Applicant history
+POST	/auth/register	Create account
+POST	/auth/login	Sign in
+POST	/auth/logout	Sign out
+GET	/auth/me	Retrieve current account
+GET	/admin/applications	Admin reviews submissions
+We'll additionally provide admin CRUD endpoints for people, accounts, categories, skills, proofs and relationship records.
+The four bootstrap routes will be implemented with the same resource naming, with the production /api/v1 prefix.
+What happens when somebody applies?
+React application form
+
+POST /api/v1/ads/:id/applications
+Validate fields, job ID, account and selected proofs
+PostgreSQL transaction
+Save applicant/application and selected proof snapshots
+HTTP 201 Created
+Return application ID and confirmation
+Application appears in admin dashboard
+
+
+Error handling and security
+We will implement proper HTTP responses: 200 and 201 for success, 400 for invalid input, 401 for missing authentication, 403 for insufficient permissions, 404 for missing resources, and appropriate conflict/server errors.
+Security will include password hashing, server-enforced roles, safe session cookies, CSRF protection where relevant, input validation, parameterized database operations, rate-limited login attempts and ownership checks on portfolio records.
+8. Final technology stack
+I propose one primary stack so that we don't spend the project continually changing frameworks.
+Layer	Technology	Reason
+Frontend	React + TypeScript + Vite	Reusable interactive UI, predictable development
+Styling	Custom CSS + CSS variables	Distinct visual identity, light/dark extensibility
+Routing	React Router	Frontend navigation
+Data fetching	TanStack Query	API state, caching and refresh
+Backend	Node.js + Express + TypeScript	Straightforward REST architecture
+Database	PostgreSQL	Relational SQL requirements
+Database tooling	Prisma migrations	Schema evolution and typed queries
+Validation	Zod	Validating API payloads
+AI	Optional model API via backend	Skill extraction and explanations
+Testing	Vitest, Supertest, Playwright	Unit, API and browser tests
+Local environment	Docker Compose	Reproducible database and services
+For the required bootstrap, we'll write real SQL and test the specified routes, even though the main application will use Prisma for database access.
+Project repository structure
+proofwork/
+│
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── features/
+│   │   │   ├── jobs/
+│   │   │   ├── applications/
+│   │   │   ├── portfolio/
+│   │   │   ├── auth/
+│   │   │   └── admin/
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   └── App.tsx
+│   └── package.json
+│
+├── server/
+│   ├── src/
+│   │   ├── routes/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   ├── middleware/
+│   │   ├── validators/
+│   │   └── app.ts
+│   ├── prisma/
+│   │   ├── schema.prisma
+│   │   └── seed.ts
+│   └── package.json
+│
+├── bootstrap/
+│   ├── schema.sql
+│   ├── seed.sql
+│   └── queries.sql
+│
+├── tests/
+├── docs/
+├── docker-compose.yml
+├── .env.example
+└── README.md
+
+
+The frontend never connects directly to PostgreSQL. All data passes through authenticated and validated backend routes.
+
+9. The 12-week development roadmap
+This is a proposed schedule, not an EPITECH deadline. Since you said we have plenty of time, I'm organizing the work into 12 focused development weeks. We can expand or compress them depending on class commitments.
+Phase 1: Foundation
+Weeks 1–3
+
+Week 1: Product blueprint and UI architecture
+- Finalize the PROOFWORK concept and its distinctive feature set.
+- Write a short Product Requirements Document.
+- Define guest, candidate and admin permissions.
+- Create low-fidelity wireframes of every major page.
+- Design the initial database relationships.
+- Set up GitHub, project folders, TypeScript and development tools.
+Deliverable: approved product specification, page map, ER diagram and project skeleton.
+
+
+Week 2: Complete the EPITECH bootstrap
+- Implement the small HireLoop SQL example.
+- Create companies, categories, people, advertisements and applications.
+- Insert the sample records manually with SQL.
+- Complete the three required SQL queries.
+- Implement the four specified REST endpoints.
+- Test HTTP success and error responses.
+- Build the minimal asynchronous job listing demo using fetch().
+Deliverable: complete, locally tested bootstrap with working database, API and dynamic frontend.
+
+
+Week 3: Production database and API
+- Create the complete PostgreSQL schema and migrations.
+- Add companies, advertisements, categories, skills and application relationships.
+- Build CRUD services and input validation.
+- Add job filtering, sorting and pagination.
+- Create a development seeding script.
+- Add integration tests for database operations.
+Deliverable: reliable production-style data foundation with a documented REST API.
+
+
+
+Phase 2: The real job board
+Weeks 4–6
+
+Week 4: Job board frontend
+- Create the visual design system and responsive layout.
+- Build the job listing cards, search bar and filters.
+- Connect all job data to the REST API.
+- Implement the inline Learn more experience.
+- Add loading, empty-state and error handling.
+- Test keyboard navigation and mobile layouts.
+Milestone: Someone can browse jobs and inspect all their details without reloading the page.
+
+Week 5: Authentication and applicant accounts
+- Registration, login and logout.
+- Secure password hashing and session management.
+- Role-based authorization.
+- User profile editing and account pages.
+- Signed-in application autofill.
+- Guest application support.
+- Authentication and permission tests.
+Milestone: The platform supports ordinary users, guests and administrators securely.
+
+Week 6: Administrator dashboard
+- Admin overview with real database counts.
+- Job and company management.
+- Applicant and application records.
+- CRUD screens for other managed records.
+- Pagination, validation and confirmation for destructive actions.
+- Server-side permission checks on every admin endpoint.
+Milestone: An administrator can operate the core platform without directly editing SQL.
+
+
+Phase 3: Our distinctive product
+Weeks 7–9
+
+Week 7: The Proof Portfolio
+- Build the add/edit/delete proof interface.
+- Support project links, repository URLs and other evidence types.
+- Build the shared skill taxonomy.
+- Connect proofs with selected skills.
+- Add portfolio ownership and visibility controls.
+- Create a candidate profile overview.
+Milestone: A user can construct a structured, reusable evidence portfolio.
+
+Week 8: Proof Packs and applications
+- Build the complete Application Studio.
+- Allow candidates to select proofs for individual jobs.
+- Save submission-time proof snapshots.
+- Support guest applications without requiring proofs.
+- Implement application confirmation and history.
+- Add admin application review and status changes.
+- Test the full applicant-to-admin workflow.
+Major milestone: We now have the first complete, distinctive, end-to-end product.
+
+Week 9: Skill intelligence without AI
+- Match normalized job requirements against proof skill tags.
+- Distinguish required and preferred skills.
+- Show evidence-linked and evidence-missing requirements.
+- Build the Job Readiness panel.
+- Implement deterministic matching tests.
+- Explain what matches do and do not indicate.
+Milestone: Our signature evidence-based job discovery experience works without an AI provider.
+
+
+Phase 4: Intelligence and final quality
+Weeks 10–12
+
+Week 10: AI integration
+- Implement administrator-reviewed skill extraction.
+- Add grounded explanations of skill requirements.
+- Add optional project suggestions.
+- Handle model errors, timeouts and rate limits.
+- Keep AI secrets on the server.
+- Provide an offline/demo fallback for local testing.
+Milestone: AI improves the product, but the application still works if AI is unavailable.
+
+Week 11: Quality assurance and polish
+- Automated API and browser tests.
+- Security and authorization testing.
+- Responsive design verification.
+- Accessibility and keyboard usability review.
+- Query performance and indexing review.
+- Loading, error and success-state improvements.
+- UI motion and visual refinement.
+Milestone: The product is stable enough for a proper demonstration.
+
+Week 12: Final delivery and presentation
+- Finalize development seed data and demo accounts.
+- Test a clean local installation from scratch.
+- Complete README, API documentation and diagrams.
+- Capture screenshots and record a backup demonstration.
+- Rehearse the applicant and administrator journeys.
+- Prepare the technical explanation and final pitch.
+- Fix remaining defects.
+Milestone: A complete EPITECH submission with a reliable live demo and documented engineering decisions.
+
+
+Project progress milestones
+Bootstrap completed
+Week 2
+
+
+
+Core board operational
+Week 6
+
+
+
+Proofwork MVP functional
+Week 8
+
+
+
+Complete v1 and delivery
+Week 12
+
+
+
+These bars represent planned timeline checkpoints, not completed work.
+10. What we're building first versus what can wait
+This is one of the most important scope decisions.
+Priority	Features
+P0: Mandatory	SQL, REST CRUD, job board, applications, auth, admin, responsive UI, local tests, README
+P1: Product identity	Proof Portfolio, Proof Packs, skill tagging, application evidence, readiness panel
+P2: Enhancements	AI extraction, AI explanations, intelligent project suggestions
+P3: Future	Employer accounts, GitHub import, optional coding exercises, real job feed integrations, interactive skill maps
+One thing I want to emphasize: we are not building coding challenges in version 1.
+That adds a complicated challenge-authoring and assessment system, and we haven't demonstrated that applicants or employers actually want it. We can investigate it after the evidence portfolio works.
+Likewise, no Three.js universe for the core application. A beautiful, accessible interface with subtle transitions is a better first investment.
+11. Our data strategy
+This deserves special attention because it's easy to build an impressive-looking job board filled with meaningless data.
+For development, we'll create a believable but clearly labeled fictional dataset:
+6
+Companies
+
+24
+Job listings
+
+30+
+Skills
+
+8
+Demo accounts
+
+30
+Applications
+
+15+
+Proof records
+
+
+We should make the dataset diverse: software engineering, data, AI, design, cybersecurity, internships, remote positions and different experience levels.
+These are development targets, not real jobs or existing data. The admin will be able to create additional records through the backend.
+Later we can explore importing legitimate listings from providers that authorize reuse. But external scraping shouldn't be a prerequisite for our final demonstration.
+12. Testing and acceptance criteria
+We won't call the project complete because the homepage looks good.
+These are the checks I want us to pass:
+Development checklist
+0/23 checked
+
+
+
+EPITECH requirements
+[ ] SQL schema, relations, seed data and three bootstrap queries work
+[ ] All required REST CRUD operations function and return appropriate HTTP statuses
+[ ] Jobs can be browsed, filtered and opened without a full page reload
+[ ] Learn more displays details inline, never in a popup
+[ ] Guest and signed-in users can submit applications
+[ ] Applications and messages are stored in SQL
+[ ] Login, registration and account editing work
+[ ] Signed-in applicants get personal information prefilled
+[ ] Administrator can inspect and manage required database records
+[ ] README supports a clean local installation
+
+
+PROOFWORK experience
+[ ] Users can create and manage their own proofs
+[ ] Proof records can be tagged with meaningful skills
+[ ] Applicants select proofs for a specific job
+[ ] Application proof snapshots remain consistent after portfolio edits
+[ ] Required and optional job skills are clearly displayed
+[ ] Evidence comparison never prevents an applicant from applying
+
+
+Security and reliability
+[ ] Candidates cannot access admin endpoints
+[ ] Users cannot alter another user's proofs or applications
+[ ] Invalid form data is rejected with useful errors
+[ ] Sensitive credentials are never exposed to the browser
+[ ] Empty, loading, failure and success states behave correctly
+[ ] Core functions work with AI integration disabled
+[ ] Desktop, mobile and keyboard navigation are tested
+
+Reset checklist
+This is an interactive planning checklist, not an automated test report. Checking an item does not verify the software.
+13. Critical risks and how we'll handle them
+Risk	Our response
+Applicants don't have portfolios	Allow conventional applications and multiple kinds of evidence
+Skill tags aren't trustworthy	Clearly distinguish linked evidence from verified ability
+Employers won't create challenges	Don't require challenges; admin supplies ordinary listings
+Job dataset feels fake	Use realistic structured demo data and label it as fictional
+Too much complexity	Complete EPITECH requirements and the core flow before adding AI
+AI produces inaccurate statements	Ground suggestions in stored job and proof data; require review where needed
+Personal information is exposed	Access controls, minimal data sharing and privacy-conscious defaults
+Local presentation fails	Seed scripts, reproducible setup and an AI-independent demo
+There's also a product risk: employers may still prefer traditional CV screening even when evidence is available.
+We shouldn't pretend this is solved. During development, we could show prototypes to a few students and people involved in hiring, then use their feedback to refine the application experience.
+14. What our final demonstration should look like
+Imagine the examiner watching us do this:
+1. Open the polished PROOFWORK landing page and explain the problem in 20 seconds.
+2. Browse several jobs, search for a Python internship and filter the results without reloading.
+3. Click Learn more and immediately see the job details and requirements.
+4. Log into a student account containing several real-looking portfolio projects.
+5. Open a role and see the skill requirements mapped against those projects.
+6. Select two pieces of evidence, write a message and submit the application.
+7. Log into the administrator account and find the newly created application, complete with the message and selected evidence.
+8. Edit a job advertisement, refresh the listing data, and demonstrate the API and relational database working together.
+9. Optionally show AI extracting structured job skills, then demonstrate that the core platform works with AI switched off.
+That gives us an end-to-end demonstration of the actual assignment plus our distinctive feature.
+15. What the final GitHub repository will contain
+By the end, we should have a submission that stands on its own:
+- Working frontend and backend source code
+- SQL schema, migrations and seed data
+- EPITECH bootstrap work and SQL query examples
+- REST API documentation
+- Database ER diagram
+- Technical architecture diagram
+- Automated tests and local run instructions
+- Environment configuration example
+- Screenshots and a short feature demonstration
+- Product documentation explaining PROOFWORK's purpose and design decisions
+We'll also write a README explaining how to install, configure, run and understand the project's main components, as required by EPITECH. jobBoard-project.pdf
+
+
+16. Our first actual development session
+Before writing production code, these are the exact things I'd work on next.
+Sprint 01: Define the product
+
+Task A: Freeze the version 1 scope and write user stories for guest, candidate and administrator.
+Task B: Design the job board, job details, Proof Portfolio, Application Studio and admin screen in Figma or as wireframes.
+Task C: Draw the database ER diagram and define exact field types and constraints.
+Task D: Initialize the repository, database and API, then implement the first bootstrap SQL tables and queries.
+Task E: Agree on the product's visual identity, including typography, spacing, colors and interaction style.
+
+Definition of done for Sprint 01: We can clearly explain every core screen, every main database relationship, and the entire applicant-to-admin workflow before expanding the codebase.
+
+Final project decision
+PROOFWORK v1
+Proposed scope
+
+Evidence-first recruitment platform
+Job Board
+Discover and apply to opportunities
+
+Proof Portfolio
+Connect skills with real work
+
+Proof Packs
+Tailor evidence to every application
+
+Optional AI
+Explain skills and learning gaps
+
+
+
+Here's what I want us to protect throughout the development: the product must be useful without AI, visually memorable without unnecessary 3D, and technically complete before we add experimental features.
+If we execute those principles well, we'll have something that satisfies EPITECH, demonstrates full-stack engineering, and can genuinely become a strong portfolio project.

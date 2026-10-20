@@ -12,29 +12,10 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
   <!-- 1. NAVBAR -->
-  <nav class="navbar navbar-expand-lg sticky-top py-3">
-    <div class="container">
-      <a class="navbar-brand fw-extrabold fs-4 d-flex align-items-center gap-2" href="index.html">
-        <span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span>
-        <span class="fw-bold tracking-tight">JobBoard</span>
-      </a>
-      <button class="navbar-toggler border-2 border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center gap-2 mt-3 mt-lg-0">
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark active" href="index.html">Find Jobs</a></li>
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="login.html">Login</a></li>
-          <li class="nav-item ms-lg-2 w-100 w-lg-auto">
-            <a class="btn btn-yellow px-4 w-100" href="admin.html">Post a Job</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div id="site-navigation"></div>
 
   <!-- 2. HERO SECTION & SEARCH BAR -->
   <header class="py-5 text-center border-bottom border-2 border-dark bg-white">
@@ -43,18 +24,18 @@
       <p class="fs-5 text-muted mb-5 fw-medium">Discover tech companies that match your vibe.</p>
       
       <!-- Search Bar -->
-      <form class="p-2 bg-white search-box mx-auto" style="max-width: 800px;">
+      <form id="job-search" role="search" class="p-2 bg-white search-box mx-auto" style="max-width: 800px;">
         <div class="row g-2 align-items-center">
           <div class="col-md-5">
             <div class="input-group">
               <span class="input-group-text bg-white border-0"><i class="bi bi-search text-dark fs-5"></i></span>
-              <input type="text" class="form-control border-0 shadow-none fw-medium" placeholder="Job title, tech stack, or keyword">
+              <input type="text" class="form-control border-0 shadow-none fw-medium" name="q" aria-label="Job title, tech stack, or keyword" maxlength="200" placeholder="Job title, tech stack, or keyword">
             </div>
           </div>
           <div class="col-md-4 border-start-md">
             <div class="input-group">
               <span class="input-group-text bg-white border-0"><i class="bi bi-geo-alt text-dark fs-5"></i></span>
-              <input type="text" class="form-control border-0 shadow-none fw-medium" placeholder="Paris, France or Remote">
+              <input type="text" class="form-control border-0 shadow-none fw-medium" name="location" aria-label="Location" maxlength="200" placeholder="Paris, France or Remote">
             </div>
           </div>
           <div class="col-md-3">
@@ -66,7 +47,7 @@
   </header>
 
   <!-- 3. JOB LISTINGS SECTION -->
-  <main class="py-5">
+  <main class="py-5 flex-grow-1">
     <div class="container">
       
       <!-- Section Header -->
@@ -75,97 +56,28 @@
           <h2 class="h3 fw-bold mb-0">Latest Opportunities</h2>
           <p class="text-muted small mb-0 fw-medium">Explore hand-picked tech positions</p>
         </div>
-        <span class="custom-badge-dark px-3 py-2 fs-6">6 Jobs Available</span>
+        <span id="job-count" class="custom-badge-dark px-3 py-2 fs-6">Loading…</span>
       </div>
 
-      <!-- Job Cards Grid -->
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        
-        <!-- Job Card 1 -->
-        <div class="col">
-          <div class="custom-card h-100 p-4 d-flex flex-column justify-content-between">
-            <div>
-              <div class="d-flex justify-content-between align-items-start mb-3">
-                <div>
-                  <h3 class="h5 fw-bold mb-1">Full Stack Engineer</h3>
-                  <p class="text-muted small fw-semibold mb-0">TechCorp Studios</p>
-                </div>
-                <span class="custom-badge-yellow px-2 py-1 small">CDI</span>
-              </div>
-              <p class="text-secondary small mb-4 fw-medium">Building next-gen dashboard web apps with React and Node.js in an agile environment.</p>
-            </div>
-            <div>
-              <div class="text-muted small mb-3 fw-medium">
-                <div class="mb-1"><i class="bi bi-geo-alt-fill text-dark me-2"></i>Paris, France</div>
-                <div><i class="bi bi-cash-stack text-dark me-2"></i>€45k - €55k / year</div>
-              </div>
-              <a href="job-detail.html" class="btn btn-yellow w-100 py-2">View Job</a>
-            </div>
-          </div>
+      <p id="jobs-status" class="text-muted fw-medium" role="status" aria-live="polite">Loading opportunities…</p>
+      <noscript><p>Enable JavaScript to load and search job opportunities.</p></noscript>
+      <div id="job-grid" class="row row-cols-1 row-cols-md-3 g-4" aria-busy="true"></div>
+      <section id="job-details" class="custom-card p-4 p-md-5 mt-4" tabindex="-1" aria-label="Job details" hidden>
+        <div class="d-flex justify-content-end mb-3">
+          <button id="close-details" type="button" class="btn btn-outline-dark btn-sm">Close details</button>
         </div>
-
-        <!-- Job Card 2 -->
-        <div class="col">
-          <div class="custom-card h-100 p-4 d-flex flex-column justify-content-between">
-            <div>
-              <div class="d-flex justify-content-between align-items-start mb-3">
-                <div>
-                  <h3 class="h5 fw-bold mb-1">Product Designer</h3>
-                  <p class="text-muted small fw-semibold mb-0">Creative Labs</p>
-                </div>
-                <span class="custom-badge-yellow px-2 py-1 small">Remote</span>
-              </div>
-              <p class="text-secondary small mb-4 fw-medium">Create sleek UI/UX components and interactive prototypes for SaaS platforms.</p>
-            </div>
-            <div>
-              <div class="text-muted small mb-3 fw-medium">
-                <div class="mb-1"><i class="bi bi-geo-alt-fill text-dark me-2"></i>Full Remote</div>
-                <div><i class="bi bi-cash-stack text-dark me-2"></i>€40k - €50k / year</div>
-              </div>
-              <a href="job-detail.html" class="btn btn-yellow w-100 py-2">View Job</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Job Card 3 -->
-        <div class="col">
-          <div class="custom-card h-100 p-4 d-flex flex-column justify-content-between">
-            <div>
-              <div class="d-flex justify-content-between align-items-start mb-3">
-                <div>
-                  <h3 class="h5 fw-bold mb-1">DevOps Engineer</h3>
-                  <p class="text-muted small fw-semibold mb-0">CloudScale Tech</p>
-                </div>
-                <span class="custom-badge-yellow px-2 py-1 small">Freelance</span>
-              </div>
-              <p class="text-secondary small mb-4 fw-medium">Managing CI/CD pipelines, Docker containers, and AWS Kubernetes infrastructure.</p>
-            </div>
-            <div>
-              <div class="text-muted small mb-3 fw-medium">
-                <div class="mb-1"><i class="bi bi-geo-alt-fill text-dark me-2"></i>Lyon, France</div>
-                <div><i class="bi bi-cash-stack text-dark me-2"></i>€500 / day</div>
-              </div>
-              <a href="job-detail.html" class="btn btn-yellow w-100 py-2">View Job</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
+        <div id="job-details-content"></div>
+        <a id="open-job-page" class="btn btn-yellow mt-4" hidden>Open job page</a>
+      </section>
     </div>
   </main>
 
   <!-- 4. FOOTER -->
-  <footer class="bg-white border-top border-2 border-dark py-4 mt-auto">
-    <div class="container text-center text-md-between d-md-flex align-items-center">
-      <p class="mb-2 mb-md-0 text-dark fw-medium small">&copy; 2026 JobBoard. All rights reserved.</p>
-      <div>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small me-3">Privacy Policy</a>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small">Terms of Service</a>
-      </div>
-    </div>
-  </footer>
+  <div id="site-footer"></div>
 
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/components/shell.js"></script>
+  <script type="module" src="js/pages/board.js"></script>
 </body>
 </html>
