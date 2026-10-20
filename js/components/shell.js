@@ -10,8 +10,7 @@ const dashboardLabel = sessionUser?.role === 'super_admin'
 const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
     <div class="container">
       <a class="navbar-brand fw-extrabold fs-4 d-flex align-items-center gap-2" href="index.html">
-        <span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span>
-        <span class="fw-bold tracking-tight">PeelWork</span>
+        <img class="peelwork-logo" src="assets/banana.png" alt="PeelWork">
       </a>
       <button class="navbar-toggler border-2 border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -31,7 +30,7 @@ const footer = `<footer class="site-footer mt-auto">
     <div class="container py-5">
       <div class="row g-4">
         <div class="col-lg-5">
-          <a class="footer-brand text-decoration-none" href="index.html"><span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span> PeelWork</a>
+          <a class="footer-brand text-decoration-none" href="index.html"><img class="peelwork-logo" src="assets/banana.png" alt="PeelWork"></a>
           <p class="small footer-muted mt-3 mb-0">The short route to good work and good people.</p>
         </div>
         <div class="col-6 col-lg-2"><h2 class="footer-heading">Explore</h2><a href="jobs.html">Find jobs</a><a href="login.html">Create account</a></div>
