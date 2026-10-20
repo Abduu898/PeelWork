@@ -18,7 +18,7 @@ const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto align-items-center gap-2 mt-3 mt-lg-0">
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark active" href="index.html">Find Jobs</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="jobs.html">Find Jobs</a></li>
           <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="login.html">Login</a></li>
           <li class="nav-item ms-lg-2 w-100 w-lg-auto">
             <a class="btn btn-yellow px-4 w-100" href="${dashboardLink}">${dashboardLabel}</a>
@@ -27,13 +27,18 @@ const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
       </div>
     </div>
   </nav>`;
-const footer = `<footer class="bg-white border-top border-2 border-dark py-4 mt-auto">
-    <div class="container text-center justify-content-md-between d-md-flex align-items-center">
-      <p class="mb-2 mb-md-0 text-dark fw-medium small">&copy; 2026 JobBoard. All rights reserved.</p>
-      <div>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small me-3">Privacy Policy</a>
-        <a href="#" class="text-dark fw-semibold text-decoration-none small">Terms of Service</a>
+const footer = `<footer class="site-footer mt-auto">
+    <div class="container py-5">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <a class="footer-brand text-decoration-none" href="index.html"><span class="brand-logo-bg"><i class="bi bi-briefcase-fill"></i></span> JobBoard</a>
+          <p class="small footer-muted mt-3 mb-0">A simpler place to find good work and good people.</p>
+        </div>
+        <div class="col-6 col-lg-2"><h2 class="footer-heading">Explore</h2><a href="jobs.html">Find jobs</a><a href="login.html">Create account</a></div>
+        <div class="col-6 col-lg-2"><h2 class="footer-heading">For teams</h2><a href="login.html">Hire with us</a><a href="login.html">Company login</a></div>
+        <div class="col-lg-3"><h2 class="footer-heading">Say hello</h2><p class="small footer-muted">Questions, ideas, or just want to talk?</p><div class="d-flex gap-2"><a class="footer-social" href="https://github.com/Abduu898/job-board-bootstrap" aria-label="JobBoard on GitHub"><i class="bi bi-github"></i></a><a class="footer-social" href="mailto:hello@jobboard.local" aria-label="Email JobBoard"><i class="bi bi-envelope"></i></a></div></div>
       </div>
+      <div class="footer-bottom mt-5 pt-3"><span class="small footer-muted">&copy; 2026 JobBoard. Take your time.</span><span class="small footer-muted">Made with care.</span></div>
     </div>
   </footer>`;
 for (const [selector, markup] of [['#site-navigation', navigation], ['#site-footer', footer]]) {

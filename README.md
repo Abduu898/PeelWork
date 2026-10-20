@@ -133,6 +133,7 @@ db.js                     MySQL connection pool
 schema.sql                Canonical database schema
 seed.sql                  Development companies, jobs, and accounts
 index.html                Public job board and search
+jobs.html                 Dedicated searchable jobs marketplace
 job-detail.html           Job details and application form
 login.html                Login and candidate registration
 candidate-dashboard.html  Candidate application dashboard

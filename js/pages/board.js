@@ -1,5 +1,5 @@
 import { listJobs, getJob } from '../services/jobs.js';
-import { jobCard, jobDetails } from '../components/jobs.js';
+import { jobCard, jobDetails, escapeHTML } from '../components/jobs.js';
 
 const form = document.querySelector('#job-search');
 const grid = document.querySelector('#job-grid');
@@ -7,6 +7,8 @@ const status = document.querySelector('#jobs-status');
 const count = document.querySelector('#job-count');
 const panel = document.querySelector('#job-details');
 const content = document.querySelector('#job-details-content');
+const categoryFilter = form.elements.category;
+const contractFilter = form.elements.contract;
 let selectedLink;
 
 function closeDetails() {
@@ -65,5 +67,13 @@ grid.addEventListener('click', async (event) => {
   }
 });
 const params = new URLSearchParams(location.search);
-for (const name of ['q', 'location']) form.elements[name].value = params.get(name) || '';
+for (const name of ['q', 'location', 'category', 'contract']) {
+  if (form.elements[name]) form.elements[name].value = params.get(name) || '';
+}
+if (categoryFilter) {
+  fetch('/categories').then((response) => response.json()).then((categories) => {
+    categoryFilter.innerHTML = '<option value="">All categories</option>' + categories.map((category) => `<option value="${category.id}">${escapeHTML(category.name)}</option>`).join('');
+    categoryFilter.value = params.get('category') || '';
+  }).catch(() => { categoryFilter.innerHTML = '<option value="">All categories</option>'; });
+}
 loadJobs();

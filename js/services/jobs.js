@@ -1,4 +1,4 @@
-export async function listJobs({ q = '', location = '' } = {}) {
+export async function listJobs({ q = '', location = '', category = '', contract = '' } = {}) {
   const response = await fetch('/ads');
   if (!response.ok) throw new Error('Unable to load job opportunities.');
   const jobs = await response.json();
@@ -6,7 +6,9 @@ export async function listJobs({ q = '', location = '' } = {}) {
   const place = location.trim().toLowerCase();
   return jobs.filter((job) =>
     [job.title, job.description, job.company_name, job.category_name].join(' ').toLowerCase().includes(keyword) &&
-    (job.location || '').toLowerCase().includes(place));
+    (job.location || '').toLowerCase().includes(place) &&
+    (!category || String(job.category_id) === String(category)) &&
+    (!contract || job.contract_type === contract));
 }
 
 export async function getJob(id) {
