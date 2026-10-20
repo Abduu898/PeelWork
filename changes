@@ -1,0 +1,10 @@
+PHASE # 1
+  
+Job board: working keyword/location search, accurate job counts, and empty-result messages.
+Job details: each job shows its own information, both inline and on a separate page.
+Login/register: candidate-focused forms, password visibility controls, validation, and guest browsing.
+Admin: Jobs, Companies, and Applications tabs; temporary job creation/editing/archiving; application evidence review and status changes.
+Application Studio: contact details, optional resume and Proof Packs, plus an editable review step.
+Code structure: reusable navbar, footer, cards, and details; separate sample data and page scripts.
+Usability: keyboard focus indicators, small-screen adjustments, and reduced-motion support.
+Project setup: preview command, README, frontend roadmap, and three passing tests.
