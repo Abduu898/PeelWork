@@ -17,14 +17,62 @@
   <!-- 1. NAVBAR -->
   <div id="site-navigation"></div>
 
-  <!-- 2. HERO SECTION & SEARCH BAR -->
-  <header class="py-5 text-center border-bottom border-2 border-dark bg-white">
-    <div class="container my-4">
-      <h1 class="display-3 fw-black mb-2" style="font-weight: 900; letter-spacing: -1px;">Find your tribe.</h1>
-      <p class="fs-5 text-muted mb-5 fw-medium">Discover tech companies that match your vibe.</p>
-      
-      <!-- Search Bar -->
-      <form id="job-search" role="search" class="p-2 bg-white search-box mx-auto" style="max-width: 800px;">
+  <!-- 2. STARTUP HERO -->
+  <header class="home-hero border-bottom border-3 border-dark">
+    <div class="container py-5">
+      <div class="row align-items-center g-5 py-lg-4">
+        <div class="col-lg-7">
+          <span class="hero-kicker"><i class="bi bi-stars me-1" aria-hidden="true"></i> The proof-first job board</span>
+          <h1 class="display-2 fw-black mt-4 mb-3 home-hero-title">Show your work.<br><span>Find your place.</span></h1>
+          <p class="fs-5 text-secondary fw-medium mb-4 home-hero-copy">A better way for ambitious people to discover meaningful roles and help teams hire with confidence.</p>
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="#opportunities" class="btn btn-cartoon-primary btn-yellow px-4 py-3">Explore opportunities <i class="bi bi-arrow-down-right ms-1" aria-hidden="true"></i></a>
+            <a href="login.html" class="btn btn-outline-dark cartoon-outline-btn px-4 py-3">Build your Proof Pack</a>
+          </div>
+          <div class="d-flex flex-wrap gap-3 small fw-bold">
+            <span><i class="bi bi-check-circle-fill text-success me-1" aria-hidden="true"></i>Apply as a guest</span>
+            <span><i class="bi bi-check-circle-fill text-success me-1" aria-hidden="true"></i>Evidence over buzzwords</span>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="hero-art cartoon-card">
+            <div class="hero-art-top"><span class="custom-badge-dark px-3 py-2">Proof Pack</span><i class="bi bi-arrow-up-right fs-3" aria-hidden="true"></i></div>
+            <div class="hero-avatar"><i class="bi bi-person-workspace" aria-hidden="true"></i></div>
+            <h2 class="h3 fw-black mb-2">Your work speaks louder.</h2>
+            <p class="text-secondary fw-medium mb-4">Connect projects, skills, and opportunities in one memorable application.</p>
+            <div class="hero-proof-list">
+              <span><i class="bi bi-github" aria-hidden="true"></i> GitHub project</span>
+              <span><i class="bi bi-window" aria-hidden="true"></i> Live portfolio</span>
+              <span><i class="bi bi-patch-check" aria-hidden="true"></i> Verified skills</span>
+            </div>
+            <div class="hero-sticker">MAKE<br>AN IMPACT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. COLLABORATOR STRIP -->
+  <section class="collaborator-strip border-bottom border-3 border-dark" aria-label="Collaborators">
+    <div class="container py-3 d-flex align-items-center gap-4 overflow-hidden">
+      <span class="collaborator-label text-uppercase small fw-black flex-shrink-0">Teams hiring with purpose</span>
+      <div class="logo-marquee" aria-hidden="true">
+        <div class="logo-track">
+          <span>TECHCORP</span><span>CREATIVE LABS</span><span>CLOUDSCALE</span><span>MAKERSPACE</span><span>PIXELFORGE</span>
+          <span>TECHCORP</span><span>CREATIVE LABS</span><span>CLOUDSCALE</span><span>MAKERSPACE</span><span>PIXELFORGE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SEARCH -->
+  <section class="home-search py-5">
+    <div class="container">
+      <div class="section-eyebrow">Find the right next step</div>
+      <div class="d-flex justify-content-between align-items-end gap-3 flex-wrap mb-3">
+        <div><h2 class="h2 fw-black mb-1">Your next chapter starts here.</h2><p class="text-secondary fw-medium mb-0">Search roles where your skills can make a real difference.</p></div>
+      </div>
+      <form id="job-search" role="search" class="p-2 bg-white search-box" style="max-width: 900px;">
         <div class="row g-2 align-items-center">
           <div class="col-md-5">
             <div class="input-group">
@@ -44,10 +92,27 @@
         </div>
       </form>
     </div>
-  </header>
+      </form>
+    </div>
+  </section>
 
-  <!-- 3. JOB LISTINGS SECTION -->
-  <main class="py-5 flex-grow-1">
+  <!-- 5. PRODUCT PROMISE -->
+  <section class="home-features py-5 border-top border-3 border-dark">
+    <div class="container">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-5"><div class="feature-intro h-100"><div class="section-eyebrow">Why JobBoard?</div><h2 class="display-6 fw-black mb-3">Less noise.<br>More proof.</h2><p class="text-secondary fw-medium mb-0">Recruitment should feel human. We help people show what they can do and help teams see beyond a CV.</p></div></div>
+        <div class="col-lg-7"><div class="row g-3 h-100">
+          <div class="col-md-6"><article class="feature-card cartoon-card h-100"><span class="feature-icon bg-yellow"><i class="bi bi-lightning-charge-fill" aria-hidden="true"></i></span><h3 class="h5 fw-black mt-4">Move with momentum</h3><p class="small text-secondary fw-medium mb-0">Discover focused opportunities without endless scrolling or generic listings.</p></article></div>
+          <div class="col-md-6"><article class="feature-card cartoon-card h-100"><span class="feature-icon bg-lilac"><i class="bi bi-boxes" aria-hidden="true"></i></span><h3 class="h5 fw-black mt-4">Bring your proof</h3><p class="small text-secondary fw-medium mb-0">Attach the projects, repositories, and work that make your application yours.</p></article></div>
+          <div class="col-md-6"><article class="feature-card cartoon-card h-100"><span class="feature-icon bg-mint"><i class="bi bi-people-fill" aria-hidden="true"></i></span><h3 class="h5 fw-black mt-4">Meet your people</h3><p class="small text-secondary fw-medium mb-0">Find teams with a mission, a craft, and a culture that matches your ambition.</p></article></div>
+          <div class="col-md-6"><article class="feature-card cartoon-card h-100"><span class="feature-icon bg-coral"><i class="bi bi-chat-heart-fill" aria-hidden="true"></i></span><h3 class="h5 fw-black mt-4">Keep it human</h3><p class="small text-secondary fw-medium mb-0">Clear roles, honest expectations, and applications that respect your time.</p></article></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. JOB LISTINGS SECTION -->
+  <main id="opportunities" class="py-5 flex-grow-1">
     <div class="container">
       
       <!-- Section Header -->

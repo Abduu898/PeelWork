@@ -1,7 +1,10 @@
 :root {
-  --brand-yellow: #FFF100; /* Jaune chaud principal */
-  --brand-yellow-hover: #e6d800;
-  --brand-dark: #121212;
+  --brand-yellow: #FFDE59;
+  --brand-yellow-hover: #f2c936;
+  --brand-dark: #181818;
+  --cartoon-border: 3px solid #181818;
+  --cartoon-radius: 12px;
+  --cartoon-shadow: 4px 4px 0px #181818;
   --border-color: #e2e2e2;
 }
 
@@ -13,7 +16,7 @@ body {
 
 /* Custom Navbar */
 .navbar {
-  border-bottom: 2px solid var(--brand-dark);
+  border-bottom: var(--cartoon-border);
   background-color: #FFFFFF !important;
 }
 
@@ -24,11 +27,12 @@ body {
 .brand-logo-bg {
   background-color: var(--brand-yellow);
   padding: 4px 8px;
-  border: 2px solid var(--brand-dark);
-  border-radius: 4px;
+  border: var(--cartoon-border);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--brand-dark);
 }
 
-/* Custom Yellow Buttons */
+.btn-cartoon-primary,
 .btn-yellow {
   --bs-btn-active-bg: var(--brand-yellow);
   --bs-btn-active-color: var(--brand-dark);
@@ -38,59 +42,64 @@ body {
   --bs-btn-disabled-border-color: var(--brand-dark);
   background-color: var(--brand-yellow);
   color: var(--brand-dark);
-  border: 2px solid var(--brand-dark);
+  border: var(--cartoon-border);
   font-weight: 700;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  border-radius: var(--cartoon-radius);
+  box-shadow: var(--cartoon-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
+.btn-cartoon-primary:hover,
 .btn-yellow:hover {
   background-color: var(--brand-yellow-hover);
   color: var(--brand-dark);
-  transform: translateY(-1px);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--brand-dark);
 }
 
-/* Custom Sharp Cards & Containers */
+.cartoon-card,
 .custom-card {
   background: #FFFFFF;
-  border: 2px solid var(--brand-dark);
-  border-radius: 8px;
+  border: var(--cartoon-border);
+  border-radius: var(--cartoon-radius);
+  box-shadow: var(--cartoon-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.cartoon-card:hover,
 .custom-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 4px 4px 0px var(--brand-dark) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--brand-dark) !important;
 }
 
 /* Custom Search Container */
 .search-box {
-  border: 2px solid var(--brand-dark);
-  border-radius: 10px;
-  box-shadow: 4px 4px 0px var(--brand-dark);
+  border: var(--cartoon-border);
+  border-radius: var(--cartoon-radius);
+  box-shadow: var(--cartoon-shadow);
 }
 
 /* Badges */
 .custom-badge-yellow {
   background-color: var(--brand-yellow);
   color: var(--brand-dark);
-  border: 1px solid var(--brand-dark);
+  border: 2px solid var(--brand-dark);
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 999px;
 }
 
 .custom-badge-dark {
   background-color: var(--brand-dark);
   color: #FFFFFF;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 999px;
 }
 
 /* Modal Sharp Styling */
 .modal-content {
-  border: 2px solid var(--brand-dark);
-  border-radius: 12px;
-  box-shadow: 6px 6px 0px var(--brand-dark);
+  border: var(--cartoon-border);
+  border-radius: var(--cartoon-radius);
+  box-shadow: 6px 6px 0 var(--brand-dark);
 }
 
 .modal-header {
@@ -100,7 +109,7 @@ body {
 
 .form-control, .form-select {
   border: 2px solid var(--brand-dark);
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 500;
 }
 
@@ -150,6 +159,16 @@ body {
 .admin-tabs .nav-link.active { color: var(--brand-dark); background: var(--brand-yellow); border-color: var(--brand-dark); }
 .proof-option { cursor: pointer; background: #fff; }
 .proof-option:has(input:checked) { background: #fffed9; box-shadow: 3px 3px 0 var(--brand-dark); }
+.proof-chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.65rem; border: 2px solid var(--brand-dark); border-radius: 999px; background: #fffed9; font-size: 0.8rem; font-weight: 700; }
+.status-badge { display: inline-block; padding: 0.3rem 0.65rem; border: 2px solid var(--brand-dark); border-radius: 999px; background: #f4f4f4; font-size: 0.75rem; font-weight: 800; text-transform: capitalize; }
+.status-badge[data-status="accepted"] { background: #b8f28b; }
+.status-badge[data-status="rejected"] { background: #ffaaa3; }
+.status-badge[data-status="reviewed"] { background: var(--brand-yellow); }
+.status-badge[data-status="pending"] { background: #e9e9e9; }
+.application-item { border: var(--cartoon-border); border-radius: var(--cartoon-radius); box-shadow: 3px 3px 0 var(--brand-dark); background: #fff; }
+.table-responsive { border-radius: 8px; }
+.dashboard-metrics { align-items: stretch; }
+.dashboard-metric-card { min-height: 156px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
 #application-studio, #application-review { scroll-margin-top: 110px; }
 #job-details { scroll-margin-top: 100px; }
 :focus-visible { outline: 3px solid var(--brand-dark); outline-offset: 4px; }
