@@ -223,9 +223,15 @@ body {
 }
 
 .footer-brand .peelwork-logo {
-  width: 170px;
-  height: 58px;
-  filter: drop-shadow(2px 2px 0 #fff);
+  width: 74px;
+  height: 52px;
+}
+
+.footer-brand span {
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
 }
 .home-features { background: #f2f0ff; }
 .audience-section { background: #fffdf1; }
@@ -325,11 +331,22 @@ body {
   color: var(--brand-dark) !important;
 }
 
+.peelwork-brand {
+  text-decoration: none;
+}
+
 .peelwork-logo {
   display: block;
-  width: 156px;
-  height: 52px;
+  width: 62px;
+  height: 44px;
   object-fit: contain;
+}
+
+.peelwork-brand-name {
+  color: var(--brand-dark);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
 }
 
 .brand-logo-bg {
