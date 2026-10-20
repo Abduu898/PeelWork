@@ -35,7 +35,7 @@ for (const kind of ['login', 'register']) {
         localStorage.setItem('hireloop_user', JSON.stringify(result.user));
         window.location.href = result.user.role === 'super_admin'
           ? 'super-admin.html'
-          : result.user.role === 'company_admin' ? 'admin.html' : 'index.html';
+          : result.user.role === 'company_admin' ? 'admin.html' : 'candidate-dashboard.html';
       } else {
         feedback.textContent = 'Candidate account created. You can now sign in.';
       }

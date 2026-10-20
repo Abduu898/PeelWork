@@ -137,6 +137,25 @@ app.post('/auth/logout', requireAuth, (req, res) => {
   res.json({ message: 'Logged out.' });
 });
 
+app.get('/me/applications', requireAuth, requireRole('candidate'), async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT applications.id, applications.applicant_name, applications.applicant_email,
+              applications.message, applications.status, applications.created_at,
+              ads.title AS job_title, companies.name AS company_name
+       FROM applications
+       JOIN ads ON ads.id = applications.ad_id
+       LEFT JOIN companies ON companies.id = ads.company_id
+       WHERE applications.applicant_email = ?
+       ORDER BY applications.created_at DESC`,
+      [req.user.email]
+    );
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Company admin routes: ownership always comes from the session.
 app.get('/company/profile', requireAuth, requireRole('company_admin'), async (req, res) => {
   const [rows] = await db.query('SELECT * FROM companies WHERE id = ?', [req.user.company_id]);

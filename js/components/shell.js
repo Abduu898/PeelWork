@@ -1,10 +1,12 @@
 const sessionUser = JSON.parse(localStorage.getItem('hireloop_user') || 'null');
 const dashboardLink = sessionUser?.role === 'super_admin'
   ? 'super-admin.html'
-  : sessionUser?.role === 'company_admin' ? 'admin.html' : 'login.html';
+  : sessionUser?.role === 'company_admin' ? 'admin.html'
+    : sessionUser?.role === 'candidate' ? 'candidate-dashboard.html' : 'login.html';
 const dashboardLabel = sessionUser?.role === 'super_admin'
   ? 'Super admin'
-  : sessionUser?.role === 'company_admin' ? 'Employer dashboard' : 'Sign in';
+  : sessionUser?.role === 'company_admin' ? 'Employer dashboard'
+    : sessionUser?.role === 'candidate' ? 'My dashboard' : 'Sign in';
 const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
     <div class="container">
       <a class="navbar-brand fw-extrabold fs-4 d-flex align-items-center gap-2" href="index.html">
