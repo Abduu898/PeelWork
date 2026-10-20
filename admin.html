@@ -51,9 +51,10 @@
             <div class="col-md-6"><label for="companyName" class="form-label fw-bold small">Company</label><input type="text" class="form-control" id="companyName" maxlength="120" readonly></div>
           </div>
           <div class="row g-3 mb-3">
-            <div class="col-md-4"><label for="contractType" class="form-label fw-bold small">Contract type</label><select class="form-select" id="contractType"><option>CDI</option><option>CDD</option><option>Freelance</option><option>Internship</option><option value="Remote" hidden>Remote</option></select></div>
-            <div class="col-md-4"><label for="location" class="form-label fw-bold small">Location</label><input type="text" class="form-control" id="location" maxlength="120" placeholder="Paris, France or Remote" required></div>
-            <div class="col-md-4"><label for="salary" class="form-label fw-bold small">Salary range (optional)</label><input type="text" class="form-control" id="salary" maxlength="100" placeholder="€45k - €55k / year"></div>
+            <div class="col-md-3"><label for="contractType" class="form-label fw-bold small">Contract type</label><select class="form-select" id="contractType"><option>CDI</option><option>CDD</option><option>Freelance</option><option>Internship</option><option value="Remote" hidden>Remote</option></select></div>
+            <div class="col-md-3"><label for="categoryId" class="form-label fw-bold small">Category</label><select class="form-select" id="categoryId" required><option value="">Loading categories…</option></select></div>
+            <div class="col-md-3"><label for="location" class="form-label fw-bold small">Location</label><input type="text" class="form-control" id="location" maxlength="120" placeholder="Paris, France or Remote" required></div>
+            <div class="col-md-3"><label for="salary" class="form-label fw-bold small">Salary range (optional)</label><input type="text" class="form-control" id="salary" maxlength="100" placeholder="€45k - €55k / year"></div>
           </div>
           <div class="mb-3"><label for="description" class="form-label fw-bold small">Description</label><textarea class="form-control" id="description" rows="4" maxlength="5000" required></textarea></div>
           <div class="mb-4"><label for="requiredSkills" class="form-label fw-bold small">Required skills (comma separated)</label><input type="text" class="form-control" id="requiredSkills" maxlength="300" placeholder="React, JavaScript, REST APIs"></div>

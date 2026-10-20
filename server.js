@@ -57,6 +57,15 @@ const jobQuery = `
 `;
 
 // Public job board
+app.get('/categories', async (req, res) => {
+  try {
+    const [rows] = await db.query('SELECT id, name FROM categories ORDER BY name');
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/ads', async (req, res) => {
   try {
     const [rows] = await db.query(`${jobQuery} ORDER BY ads.created_at DESC`);
@@ -78,11 +87,14 @@ app.get('/ads/:id', async (req, res) => {
 
 app.post('/ads/:id/applications', async (req, res) => {
   try {
-    const { first_name, last_name, email, message } = req.body;
+    const { first_name, last_name, email, message, proof_pack } = req.body;
     if (!first_name || !email) return res.status(400).json({ error: 'First name and email are required.' });
+    if (proof_pack !== undefined && typeof proof_pack !== 'string') {
+      return res.status(400).json({ error: 'Proof pack must be a JSON string.' });
+    }
     const [result] = await db.query(
-      'INSERT INTO applications (ad_id, applicant_name, applicant_email, message) VALUES (?, ?, ?, ?)',
-      [req.params.id, last_name ? `${first_name} ${last_name}` : first_name, email, message || null]
+      'INSERT INTO applications (ad_id, applicant_name, applicant_email, message, proof_pack) VALUES (?, ?, ?, ?, ?)',
+      [req.params.id, last_name ? `${first_name} ${last_name}` : first_name, email, message || null, proof_pack || null]
     );
     res.status(201).json({ message: 'Application submitted successfully!', application_id: result.insertId });
   } catch (err) {
@@ -148,6 +160,30 @@ app.get('/company/applications', requireAuth, requireRole('company_admin'), asyn
     [req.user.company_id]
   );
   res.json(rows);
+});
+
+app.patch('/applications/:id/status', requireAuth, requireRole('company_admin', 'super_admin'), async (req, res) => {
+  const allowedStatuses = ['pending', 'reviewed', 'accepted', 'rejected'];
+  const { status } = req.body;
+  if (!allowedStatuses.includes(status)) {
+    return res.status(400).json({ error: 'Status must be pending, reviewed, accepted, or rejected.' });
+  }
+
+  try {
+    const [result] = req.user.role === 'super_admin'
+      ? await db.query('UPDATE applications SET status = ? WHERE id = ?', [status, req.params.id])
+      : await db.query(
+        `UPDATE applications
+         JOIN ads ON ads.id = applications.ad_id
+         SET applications.status = ?
+         WHERE applications.id = ? AND ads.company_id = ?`,
+        [status, req.params.id, req.user.company_id]
+      );
+    if (!result.affectedRows) return res.status(404).json({ error: 'Application not found for your company.' });
+    res.json({ message: 'Application status updated.', status });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.post('/company/ads', requireAuth, requireRole('company_admin'), async (req, res) => {

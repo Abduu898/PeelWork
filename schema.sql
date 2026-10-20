@@ -46,6 +46,8 @@ CREATE TABLE applications (
   applicant_name VARCHAR(150) NOT NULL,
   applicant_email VARCHAR(150) NOT NULL,
   message TEXT,
+  proof_pack TEXT,
+  status ENUM('pending', 'reviewed', 'accepted', 'rejected') NOT NULL DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (ad_id) REFERENCES ads(id) ON DELETE CASCADE
 );

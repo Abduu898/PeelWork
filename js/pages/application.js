@@ -40,6 +40,7 @@ export function initApplication(job) {
       if (!input.value.trim()) { input.setCustomValidity('Please enter a value.'); input.reportValidity(); return; }
     }
     const values = new FormData(form);
+    const pack = selectedProofs();
     const fullName = values.get('fullName').trim().split(/\s+/);
     const response = await fetch(`/ads/${encodeURIComponent(job.id)}/applications`, {
       method: 'POST',
@@ -48,7 +49,8 @@ export function initApplication(job) {
         first_name: fullName.shift(),
         last_name: fullName.join(' '),
         email: values.get('email').trim(),
-        message: values.get('message').trim()
+        message: values.get('message').trim(),
+        proof_pack: JSON.stringify(pack)
       })
     });
     const result = await response.json();
@@ -57,7 +59,6 @@ export function initApplication(job) {
       review.hidden = false;
       return;
     }
-    const pack = selectedProofs();
     document.querySelector('#application-summary').innerHTML = `
       <p class="fw-bold">${text(job.title)} · ${text(job.company_name)}</p>
       <dl class="row small"><dt class="col-sm-3">Full name</dt><dd class="col-sm-9">${text(values.get('fullName').trim())}</dd><dt class="col-sm-3">Email</dt><dd class="col-sm-9 text-break">${text(values.get('email'))}</dd><dt class="col-sm-3">Phone</dt><dd class="col-sm-9">${text(values.get('phone') || 'Not provided')}</dd><dt class="col-sm-3">Resume</dt><dd class="col-sm-9 text-break">${text(file.files[0]?.name || 'Not attached')}</dd></dl>

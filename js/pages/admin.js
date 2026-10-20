@@ -7,6 +7,7 @@ const form = document.querySelector('#job-editor');
 const modal = document.querySelector('#postJobModal');
 let listings = [];
 let applications = [];
+let categories = [];
 let editingId = null;
 
 if (!token || user?.role !== 'company_admin') {
@@ -41,22 +42,30 @@ function render() {
   document.querySelector('#admin-applications').innerHTML = applications.length
     ? applications.map((application) => `<details class="border border-2 border-dark rounded-3 p-3">
       <summary class="fw-bold">${text(application.applicant_name)} <span class="small fw-normal">· ${text(application.job_title)}</span></summary>
-      <div class="pt-3"><p class="small text-muted">${text(application.applicant_email)}</p><p class="small job-description">${text(application.message || 'No message provided.')}</p></div>
+      <div class="pt-3"><p class="small text-muted">${text(application.applicant_email)}</p><p class="small job-description">${text(application.message || 'No message provided.')}</p>
+        <label class="form-label fw-bold small" for="status-${application.id}">Status</label>
+        <select id="status-${application.id}" class="form-select form-select-sm" data-status-id="${application.id}">
+          ${['pending', 'reviewed', 'accepted', 'rejected'].map((status) => `<option value="${status}"${status === application.status ? ' selected' : ''}>${status}</option>`).join('')}
+        </select>
+      </div>
     </details>`).join('')
     : '<p class="text-muted">No applications yet.</p>';
 }
 
 async function loadDashboard() {
   try {
-    const [company, jobs, receivedApplications] = await Promise.all([
+    const [company, jobs, receivedApplications, availableCategories] = await Promise.all([
       request('/company/profile'),
       request('/company/ads'),
-      request('/company/applications')
+      request('/company/applications'),
+      request('/categories')
     ]);
     user.company_name = company.name;
     localStorage.setItem('hireloop_user', JSON.stringify(user));
     listings = jobs;
     applications = receivedApplications;
+    categories = availableCategories;
+    document.querySelector('#categoryId').innerHTML = categories.map((category) => `<option value="${category.id}">${text(category.name)}</option>`).join('');
     render();
   } catch (error) {
     notify(error.message);
@@ -75,6 +84,20 @@ document.querySelector('#admin-jobs').addEventListener('click', async (event) =>
   }
 });
 
+document.querySelector('#admin-applications').addEventListener('change', async (event) => {
+  const applicationId = event.target.dataset.statusId;
+  if (!applicationId) return;
+  try {
+    await request(`/applications/${applicationId}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status: event.target.value })
+    });
+    notify('Application status updated.');
+  } catch (error) {
+    notify(error.message);
+  }
+});
+
 modal.addEventListener('show.bs.modal', (event) => {
   form.reset();
   editingId = Number(event.relatedTarget?.dataset.editId) || null;
@@ -86,6 +109,7 @@ modal.addEventListener('show.bs.modal', (event) => {
     document.getElementById(id).value = job[key] || '';
   }
   document.querySelector('#contractType').value = job.contract_type;
+  document.querySelector('#categoryId').value = job.category_id || '';
 });
 
 form.addEventListener('submit', async (event) => {
@@ -97,9 +121,9 @@ form.addEventListener('submit', async (event) => {
     location: value('location'),
     salary: value('salary'),
     contract_type: value('contractType'),
-    category_id: 1
+    category_id: Number(value('categoryId'))
   };
-  if (!body.title || !body.description || !body.location) return notify('Title, description, and location are required.');
+  if (!body.title || !body.description || !body.location || !body.category_id) return notify('Title, description, location, and category are required.');
   try {
     await request(editingId ? `/company/ads/${editingId}` : '/company/ads', { method: editingId ? 'PUT' : 'POST', body: JSON.stringify(body) });
     await loadDashboard();
