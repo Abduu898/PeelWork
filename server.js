@@ -7,32 +7,31 @@ const app = express();
 const sessions = new Map();
 const PORT = 3000;
 
-app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.json()); /* turns json to js */ 
+app.use(express.static(__dirname)); /*so html css can work in browser*/ 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  if (req.method === 'OPTIONS') return res.sendStatus(200); /* browser preflight request to verify permissions */
   next();
 });
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+/* imports and setup */ 
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
-
 function createSession(user) {
   const token = crypto.randomBytes(24).toString('hex');
-  sessions.set(token, user);
+  sessions.set(token, user); /* returns a new session token back to the user*/
   return token;
 }
-
-function requireAuth(req, res, next) {
+function requireAuth(req, res, next) { /*checks wether the user is authenticated*/
   const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
   const user = token ? sessions.get(token) : null;
-  if (!user) return res.status(401).json({ error: 'Authentication required.' });
+  if (!user) return res.status(401).json({ error: 'Authentication required.' }); /*if no return 401 */
   req.user = user;
   next();
 }
@@ -43,14 +42,16 @@ function attachSessionUser(req, res, next) {
   next();
 }
 
-function requireRole(...roles) {
+function requireRole(...roles) { /*checks if the user has the required role*/
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) return res.status(403).json({ error: 'You do not have permission for this action.' });
     next();
   };
 }
 
-const jobQuery = `
+/* Security and authentication functions */
+
+const jobQuery = ` 
   SELECT ads.*, companies.name AS company_name, companies.description AS company_description,
          categories.name AS category_name
   FROM ads
@@ -148,7 +149,6 @@ app.put('/me/profile', requireAuth, requireRole('candidate'), async (req, res) =
   }
 });
 
-// Simple school-project authentication
 app.post('/auth/register/candidate', async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -204,6 +204,7 @@ app.get('/me/applications', requireAuth, requireRole('candidate'), async (req, r
     res.status(500).json({ error: err.message });
   }
 });
+/* end of candidate and guest routes */ 
 
 // Company admin routes: ownership always comes from the session.
 app.get('/company/profile', requireAuth, requireRole('company_admin'), async (req, res) => {

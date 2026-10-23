@@ -62,7 +62,7 @@ CREATE TABLE applications (
   applicant_name VARCHAR(150) NOT NULL,
   applicant_email VARCHAR(150) NOT NULL,
   message TEXT,
-  status ENUM('pending', 'reviewed', 'accepted', 'rejected') NOT NULL DEFAULT 'pending',
+  status ENUM('pending', 'reviewed', 'accepted', 'rejected') NOT NULL DEFAULT 'pending', /* restricts a column to only allow specific values */
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (candidate_id) REFERENCES people(id) ON DELETE SET NULL,
   FOREIGN KEY (ad_id) REFERENCES ads(id) ON DELETE CASCADE

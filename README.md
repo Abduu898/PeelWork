@@ -8,16 +8,18 @@ The frontend and backend are connected. The current MVP includes:
 
 - Public job search and job details.
 - Candidate registration and login.
+- Candidate profile editing with contact, skills, experience, education, and portfolio details.
 - Candidate dashboard with submitted applications and statuses.
 - Guest applications without an account.
 - Company-admin dashboards scoped to one company.
+- Editable company profiles with industry, size, work model, benefits, website, and LinkedIn details.
 - Listing creation, editing, and deletion for company admins.
-- Application inboxes for company admins.
+- Company application inboxes with candidate profile context, pipeline filters, and status actions.
 - Application status updates: `pending`, `reviewed`, `accepted`, and `rejected`.
 - Super-admin access to all companies, company admins, and listings.
 - Responsive Bootstrap UI with PeelWork's yellow neo-brutalist visual style.
 
-The application flow uses a name, email, optional local resume selection, and message. The resume filename is shown during review but is not uploaded or saved yet.
+The application flow uses a name, email, optional local resume selection, and message. Resume files are currently validated and displayed by filename only; they are not uploaded or saved yet.
 
 ## Requirements
 
@@ -137,11 +139,14 @@ These are development credentials only.
 
 ### Candidate
 
+- `GET /me/profile`
+- `PUT /me/profile`
 - `GET /me/applications`
 
 ### Company admin
 
 - `GET /company/profile`
+- `PUT /company/profile`
 - `GET /company/ads`
 - `POST /company/ads`
 - `PUT /company/ads/:id`
@@ -183,6 +188,7 @@ tests/                    Frontend tests
 ## Known MVP limitations
 
 - Sessions are stored in memory and disappear when the server restarts.
+- The browser stores the session token in `localStorage`; production should use an HttpOnly cookie and persistent session storage.
 - Passwords use SHA-256 for this school project; production applications should use a password-hashing algorithm such as Argon2 or bcrypt.
 - Guest applications are stored but are not linked to a candidate dashboard.
 - Resume files are validated and displayed by filename only; they are not uploaded or persisted.
@@ -190,11 +196,15 @@ tests/                    Frontend tests
 
 ## Testing
 
-Run the existing Node test suite with:
+Run the Node test suite with:
 
 ```sh
 npm test
 ```
+
+The frontend tests import browser-side modules that call API-relative URLs.
+They require a browser-like fetch base URL or a test fetch mock; starting the
+Express server alone does not provide that base URL to Node's test runner.
 
 For an integrated manual check:
 
