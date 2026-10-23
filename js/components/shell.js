@@ -37,7 +37,7 @@ const footer = `<footer class="site-footer mt-auto">
         </div>
         <div class="col-6 col-lg-2"><h2 class="footer-heading">Explore</h2><a href="jobs.html">Find jobs</a><a href="login.html">Create account</a></div>
         <div class="col-6 col-lg-2"><h2 class="footer-heading">For teams</h2><a href="login.html">Hire with us</a><a href="login.html">Company login</a></div>
-        <div class="col-lg-3"><h2 class="footer-heading">Say hello</h2><p class="small footer-muted">Questions, ideas, or just want to talk?</p><div class="d-flex gap-2"><a class="footer-social" href="https://github.com/Abduu898/job-board-bootstrap" aria-label="PeelWork on GitHub"><i class="bi bi-github"></i></a><a class="footer-social" href="mailto:hello@peelwork.local" aria-label="Email PeelWork"><i class="bi bi-envelope"></i></a></div></div>
+        <div class="col-lg-3"><h2 class="footer-heading">Say hello</h2><p class="small footer-muted">Questions, ideas, or just want to talk?</p><div class="d-flex gap-2"><a class="footer-social" href="https://github.com/Abduu898/PeelWork" aria-label="PeelWork on GitHub"><i class="bi bi-github"></i></a><a class="footer-social" href="mailto:hello@peelwork.local" aria-label="Email PeelWork"><i class="bi bi-envelope"></i></a></div></div>
       </div>
       <div class="footer-bottom mt-5 pt-3"><span class="small footer-muted">&copy; 2026 PeelWork. Take your time.</span><span class="small footer-muted">Made with care.</span></div>
     </div>

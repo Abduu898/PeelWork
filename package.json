@@ -1,8 +1,8 @@
 {
-  "name": "job-board-bootstrap",
+  "name": "peelwork",
   "version": "1.0.0",
   "description": "PeelWork job marketplace MVP with a clean, high-signal hiring experience",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node scripts/preview.js",
@@ -10,16 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Abduu898/job-board-bootstrap.git"
+    "url": "git+https://github.com/Abduu898/PeelWork.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Abduu898/job-board-bootstrap/issues"
+    "url": "https://github.com/Abduu898/PeelWork/issues"
   },
-  "homepage": "https://github.com/Abduu898/job-board-bootstrap#readme",
+  "homepage": "https://github.com/Abduu898/PeelWork#readme",
   "dependencies": {
     "dotenv": "^18.0.8",
     "express": "^5.3.0",

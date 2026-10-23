@@ -50,10 +50,6 @@ function requireRole(...roles) {
   };
 }
 
-function companyScope(req) {
-  return req.user.role === 'super_admin' ? null : req.user.company_id;
-}
-
 const jobQuery = `
   SELECT ads.*, companies.name AS company_name, companies.description AS company_description,
          categories.name AS category_name
