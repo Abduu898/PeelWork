@@ -31,13 +31,34 @@
           </div>
           <p class="fs-5 text-secondary fw-medium mb-4 home-hero-copy">Good roles are hard to find. We make the search a little clearer, from the first click to the first conversation.</p>
           <div class="d-flex flex-wrap gap-3 mb-4">
-            <a href="jobs.html" class="btn btn-cartoon-primary btn-yellow px-4 py-3">Explore opportunities <i class="bi bi-arrow-down-right ms-1" aria-hidden="true"></i></a>
+            <a href="jobs.html" class="btn btn-cartoon-primary btn-yellow px-4 py-3">Browse open jobs <i class="bi bi-arrow-down-right ms-1" aria-hidden="true"></i></a>
             <a href="login.html" class="btn btn-outline-dark cartoon-outline-btn px-4 py-3">Create an account</a>
           </div>
           <div class="d-flex flex-wrap gap-3 small fw-bold">
             <span><i class="bi bi-check-circle-fill text-success me-1" aria-hidden="true"></i>No endless scrolling</span>
             <span><i class="bi bi-check-circle-fill text-success me-1" aria-hidden="true"></i>Apply in your own words</span>
           </div>
+          <form id="job-search" role="search" class="p-2 bg-white search-box hero-search mt-4">
+            <div class="row g-2 align-items-center">
+              <div class="col-md-5">
+                <label class="visually-hidden" for="home-job-keyword">Job title, skill, or keyword</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white border-0"><i class="bi bi-search text-dark fs-5" aria-hidden="true"></i></span>
+                  <input id="home-job-keyword" type="search" class="form-control border-0 shadow-none fw-medium" name="q" maxlength="200" placeholder="Role, skill, or keyword">
+                </div>
+              </div>
+              <div class="col-md-4 border-start-md">
+                <label class="visually-hidden" for="home-job-location">Location</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white border-0"><i class="bi bi-geo-alt text-dark fs-5" aria-hidden="true"></i></span>
+                  <input id="home-job-location" type="search" class="form-control border-0 shadow-none fw-medium" name="location" maxlength="200" placeholder="City or remote">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <button type="submit" class="btn btn-yellow py-2 w-100">Search jobs</button>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="col-lg-5">
           <div class="hero-art cartoon-card">
@@ -59,46 +80,17 @@
   <!-- 3. COLLABORATOR STRIP -->
   <section class="collaborator-strip border-bottom border-3 border-dark" aria-label="Collaborators">
     <div class="container py-3 d-flex align-items-center gap-4 overflow-hidden">
-      <span class="collaborator-label text-uppercase small fw-black flex-shrink-0">Teams hiring with purpose</span>
+      <span class="collaborator-label text-uppercase small fw-black flex-shrink-0">A clearer way to connect</span>
       <div class="logo-marquee" aria-hidden="true">
         <div class="logo-track">
-          <span>TECHCORP</span><span>CREATIVE LABS</span><span>CLOUDSCALE</span><span>MAKERSPACE</span><span>PIXELFORGE</span>
-          <span>TECHCORP</span><span>CREATIVE LABS</span><span>CLOUDSCALE</span><span>MAKERSPACE</span><span>PIXELFORGE</span>
+          <span>OPEN ROLES</span><span>HONEST EXPECTATIONS</span><span>DIRECT APPLICATIONS</span><span>BETTER CONVERSATIONS</span>
+          <span>OPEN ROLES</span><span>HONEST EXPECTATIONS</span><span>DIRECT APPLICATIONS</span><span>BETTER CONVERSATIONS</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. SEARCH -->
-  <section class="home-search py-5">
-    <div class="container">
-      <div class="section-eyebrow">Start with a search</div>
-      <div class="d-flex justify-content-between align-items-end gap-3 flex-wrap mb-3">
-        <div><h2 class="h2 fw-black mb-1">What are you looking for?</h2><p class="text-secondary fw-medium mb-0">Try a role, a skill, or a place. You can always change your mind.</p></div>
-      </div>
-      <form id="job-search" role="search" class="p-2 bg-white search-box" style="max-width: 900px;">
-        <div class="row g-2 align-items-center">
-          <div class="col-md-5">
-            <div class="input-group">
-              <span class="input-group-text bg-white border-0"><i class="bi bi-search text-dark fs-5"></i></span>
-              <input type="text" class="form-control border-0 shadow-none fw-medium" name="q" aria-label="Job title, tech stack, or keyword" maxlength="200" placeholder="Role, skill, or keyword">
-            </div>
-          </div>
-          <div class="col-md-4 border-start-md">
-            <div class="input-group">
-              <span class="input-group-text bg-white border-0"><i class="bi bi-geo-alt text-dark fs-5"></i></span>
-              <input type="text" class="form-control border-0 shadow-none fw-medium" name="location" aria-label="Location" maxlength="200" placeholder="Paris, France or Remote">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <button type="submit" class="btn btn-yellow py-2.5 w-100">Search</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- 5. STORY -->
+  <!-- 4. STORY -->
   <section class="story-section py-5 border-top border-3 border-dark">
     <div class="container">
       <div class="row g-5 align-items-center">
@@ -119,7 +111,7 @@
     </div>
   </section>
 
-  <!-- 6. PRODUCT PROMISE -->
+  <!-- 5. PRODUCT PROMISE -->
   <section class="home-features py-5 border-top border-3 border-dark">
     <div class="container">
       <div class="row g-4 align-items-stretch">
@@ -134,7 +126,7 @@
     </div>
   </section>
 
-  <!-- 7. AUDIENCE PATHS -->
+  <!-- 6. AUDIENCE PATHS -->
   <section class="audience-section py-5 border-top border-3 border-dark">
     <div class="container">
       <div class="d-flex justify-content-between align-items-end gap-3 flex-wrap mb-4">
@@ -147,20 +139,24 @@
     </div>
   </section>
 
-  <!-- 8. JOB LISTINGS SECTION -->
+  <!-- 7. JOB LISTINGS SECTION -->
   <main id="opportunities" class="py-5 flex-grow-1">
     <div class="container">
       
       <!-- Section Header -->
-      <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4">
         <div>
           <h2 class="h3 fw-bold mb-0">Latest Opportunities</h2>
           <p class="text-muted small mb-0 fw-medium">A few places to start</p>
         </div>
-        <span id="job-count" class="custom-badge-dark px-3 py-2 fs-6">Loading…</span>
+        <div class="d-flex align-items-center gap-2">
+          <span id="job-count" class="custom-badge-dark px-3 py-2 fs-6">Loading…</span>
+          <a href="jobs.html" class="btn btn-outline-dark btn-sm cartoon-outline-btn">View all jobs</a>
+        </div>
       </div>
 
       <p id="jobs-status" class="text-muted fw-medium" role="status" aria-live="polite">Loading opportunities…</p>
+      <p class="small text-secondary fw-medium">Clear role details, direct applications, and a dashboard to follow what happens next.</p>
       <noscript><p>Enable JavaScript to load and search job opportunities.</p></noscript>
       <div id="job-grid" class="row row-cols-1 row-cols-md-3 g-4" aria-busy="true"></div>
       <section id="job-details" class="custom-card p-4 p-md-5 mt-4" tabindex="-1" aria-label="Job details" hidden>

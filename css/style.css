@@ -183,6 +183,7 @@ body {
 .logo-track span::before { content: '✦'; color: var(--brand-yellow); margin-right: 1rem; }
 
 .home-search { background: #fffdf1; }
+.hero-search { max-width: 760px; }
 .jobs-page-heading { background: #fffdf1; }
 .jobs-browser { background: #f2f0ff; }
 .jobs-filter-panel { background: #fff; }
@@ -512,6 +513,7 @@ body {
 @media (max-width: 575.98px) {
   .home-hero-title { font-size: 3.4rem; }
   .hero-art { min-height: 360px; transform: none; }
+  .hero-search { margin-right: -0.5rem; margin-left: -0.5rem; }
   .hero-float-badge-one { right: 0; }
   .hero-float-badge-two { right: 4%; }
   .collaborator-label { max-width: 130px; }

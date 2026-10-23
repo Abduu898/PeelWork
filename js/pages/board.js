@@ -37,7 +37,16 @@ async function loadJobs() {
   }
 }
 
-form.addEventListener('submit', (event) => { event.preventDefault(); loadJobs(); });
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  await loadJobs();
+  if (location.pathname.endsWith('index.html') || location.pathname === '/') {
+    document.querySelector('#opportunities').scrollIntoView({
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      block: 'start',
+    });
+  }
+});
 document.querySelector('#close-details').addEventListener('click', () => {
   closeDetails();
   selectedLink?.focus();
