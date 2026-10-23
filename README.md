@@ -101,13 +101,13 @@ The dedicated job marketplace is available at:
 http://127.0.0.1:3000/jobs.html
 ```
 
-The older static frontend preview is still available with:
+The frontend preview is also available with:
 
 ```sh
 npm run dev
 ```
 
-That preview is useful for isolated UI work, but it does not provide the real authentication, MySQL persistence, dashboards, or application API. Use `npm start` for the current integrated project.
+The preview serves the frontend on port `5173` and proxies API requests to the integrated server on port `3000`. Start `npm start` in another terminal before using login, dashboards, profile saving, or applications. For the simplest setup, use `npm start` and open `http://127.0.0.1:3000/`.
 
 ## Seed accounts
 

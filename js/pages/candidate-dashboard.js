@@ -68,6 +68,10 @@ profileForm.addEventListener('submit', async (event) => {
       headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(Object.fromEntries(new FormData(profileForm))),
     });
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      throw new Error('The API server returned an HTML page. Start the app with "npm start", then try again.');
+    }
     const profile = await response.json();
     if (!response.ok) throw new Error(profile.error || 'Profile could not be saved.');
     document.querySelector('#candidate-name').textContent = profile.name;
