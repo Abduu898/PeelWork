@@ -216,6 +216,30 @@ app.get('/company/profile', requireAuth, requireRole('company_admin'), async (re
   res.json(rows[0]);
 });
 
+app.put('/company/profile', requireAuth, requireRole('company_admin'), async (req, res) => {
+  try {
+    const { name, location, description, website_url, industry, company_size, remote_policy, benefits, linkedin_url } = req.body;
+    if (!name?.trim()) return res.status(400).json({ error: 'Company name is required.' });
+    const [result] = await db.query(
+      `UPDATE companies
+       SET name = ?, location = ?, description = ?, website_url = ?, industry = ?,
+           company_size = ?, remote_policy = ?, benefits = ?, linkedin_url = ?
+       WHERE id = ?`,
+      [
+        name.trim(), location?.trim() || null, description?.trim() || null,
+        website_url?.trim() || null, industry?.trim() || null, company_size?.trim() || null,
+        remote_policy?.trim() || null, benefits?.trim() || null, linkedin_url?.trim() || null,
+        req.user.company_id,
+      ]
+    );
+    if (!result.affectedRows) return res.status(404).json({ error: 'Company not found.' });
+    const [rows] = await db.query('SELECT * FROM companies WHERE id = ?', [req.user.company_id]);
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/company/ads', requireAuth, requireRole('company_admin'), async (req, res) => {
   const [rows] = await db.query(`${jobQuery} WHERE ads.company_id = ? ORDER BY ads.created_at DESC`, [req.user.company_id]);
   res.json(rows);

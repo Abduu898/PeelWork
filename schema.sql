@@ -7,6 +7,12 @@ CREATE TABLE companies (
   name VARCHAR(150) NOT NULL,
   location VARCHAR(150),
   description TEXT,
+  website_url VARCHAR(255),
+  industry VARCHAR(100),
+  company_size VARCHAR(50),
+  remote_policy VARCHAR(100),
+  benefits TEXT,
+  linkedin_url VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

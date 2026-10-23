@@ -23,6 +23,50 @@
         <div class="col-md-4"><div class="cartoon-card custom-card dashboard-metric-card p-4"><span class="text-muted small fw-bold text-uppercase">Applications</span><div id="application-count" class="fs-2 fw-bold my-1">—</div><span class="text-muted small fw-medium">Applications to review</span></div></div>
         <div class="col-md-4"><div class="cartoon-card custom-card dashboard-metric-card p-4"><span class="text-muted small fw-bold text-uppercase">Company</span><div id="company-name" class="fs-4 fw-bold my-1">Loading…</div><span class="text-muted small fw-medium">Your company</span></div></div>
       </div>
+      <section class="cartoon-card custom-card p-4 mb-4" aria-labelledby="company-profile-heading">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+          <div><h2 id="company-profile-heading" class="h5 fw-bold mb-1">Company profile</h2><p class="small text-muted mb-0">Give candidates the context they need before they apply.</p></div>
+          <button type="button" class="btn btn-yellow btn-sm" data-bs-toggle="modal" data-bs-target="#companyProfileModal"><i class="bi bi-pencil me-1" aria-hidden="true"></i>Edit profile</button>
+        </div>
+        <div class="company-profile-summary">
+          <div class="d-flex align-items-start gap-3">
+            <span class="company-profile-avatar" aria-hidden="true"><i class="bi bi-building"></i></span>
+            <div>
+              <h3 id="company-profile-summary-name" class="h4 fw-bold mb-1">Loading…</h3>
+              <p id="company-profile-summary-meta" class="small text-muted mb-2">Loading company details…</p>
+              <p id="company-profile-summary-description" class="small text-secondary mb-0">Complete your profile so candidates can understand your team.</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <span id="company-profile-summary-size" class="custom-badge-yellow small px-2 py-1" hidden></span>
+            <span id="company-profile-summary-remote" class="custom-badge-yellow small px-2 py-1" hidden></span>
+            <a id="company-profile-summary-website" class="small fw-bold text-dark" target="_blank" rel="noreferrer" hidden>Website</a>
+            <a id="company-profile-summary-linkedin" class="small fw-bold text-dark" target="_blank" rel="noreferrer" hidden>LinkedIn</a>
+          </div>
+        </div>
+      </section>
+      <div class="modal fade" id="companyProfileModal" tabindex="-1" aria-labelledby="companyProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content">
+          <div class="modal-header"><h2 class="h5 fw-bold mb-0" id="companyProfileModalLabel">Edit company profile</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+          <div class="modal-body p-4">
+            <p id="company-profile-feedback" class="preview-feedback small mb-3" role="status" hidden></p>
+            <form id="company-profile-form">
+          <div class="row g-3">
+            <div class="col-md-6"><label for="company-profile-name" class="form-label small fw-bold">Company name</label><input id="company-profile-name" name="name" class="form-control" maxlength="150" required></div>
+            <div class="col-md-6"><label for="company-profile-location" class="form-label small fw-bold">Location</label><input id="company-profile-location" name="location" class="form-control" maxlength="150" placeholder="Paris, France or Remote"></div>
+            <div class="col-md-6"><label for="company-profile-industry" class="form-label small fw-bold">Industry</label><input id="company-profile-industry" name="industry" class="form-control" maxlength="100" placeholder="Software, design, education..."></div>
+            <div class="col-md-3"><label for="company-profile-size" class="form-label small fw-bold">Company size</label><select id="company-profile-size" name="company_size" class="form-select"><option value="">Select size</option><option>1–10</option><option>11–50</option><option>51–200</option><option>201–500</option><option>500+</option></select></div>
+            <div class="col-md-3"><label for="company-profile-remote" class="form-label small fw-bold">Work model</label><select id="company-profile-remote" name="remote_policy" class="form-select"><option value="">Select model</option><option>On-site</option><option>Hybrid</option><option>Remote-first</option><option>Flexible</option></select></div>
+            <div class="col-12"><label for="company-profile-description" class="form-label small fw-bold">About the company</label><textarea id="company-profile-description" name="description" class="form-control" rows="4" maxlength="4000" placeholder="What does your company do, and what makes it a good place to work?"></textarea></div>
+            <div class="col-md-6"><label for="company-profile-benefits" class="form-label small fw-bold">Benefits and perks</label><textarea id="company-profile-benefits" name="benefits" class="form-control" rows="3" maxlength="2000" placeholder="Flexible hours, learning budget, meal vouchers..."></textarea></div>
+            <div class="col-md-3"><label for="company-profile-website" class="form-label small fw-bold">Website</label><input id="company-profile-website" name="website_url" type="url" class="form-control" maxlength="255" placeholder="https://"></div>
+            <div class="col-md-3"><label for="company-profile-linkedin" class="form-label small fw-bold">LinkedIn</label><input id="company-profile-linkedin" name="linkedin_url" type="url" class="form-control" maxlength="255" placeholder="https://linkedin.com/company/"></div>
+          </div>
+              <div class="d-flex justify-content-end gap-2 mt-4"><button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button><button class="btn btn-yellow" type="submit">Save company profile</button></div>
+            </form>
+          </div>
+        </div></div>
+      </div>
       <div class="cartoon-card custom-card p-4">
         <ul class="nav nav-pills gap-2 mb-4 admin-tabs" role="tablist" aria-label="Manage records">
           <li class="nav-item" role="presentation"><button class="nav-link active fw-bold" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs-pane" type="button" role="tab" aria-controls="jobs-pane" aria-selected="true">Jobs</button></li>
@@ -35,7 +79,19 @@
             <div class="table-responsive"><table class="table align-middle text-dark fw-medium mb-0"><caption class="visually-hidden">Company job management</caption><thead class="border-bottom border-2 border-dark"><tr class="small text-muted text-uppercase"><th scope="col">Job</th><th scope="col">Type</th><th scope="col">Location</th><th scope="col" class="text-end">Actions</th></tr></thead><tbody id="admin-jobs"></tbody></table></div>
           </section>
           <section class="tab-pane fade" id="applications-pane" role="tabpanel" aria-labelledby="applications-tab" tabindex="0">
-            <h2 class="h5 fw-bold mb-2">Application inbox</h2><p class="small text-muted mb-4">Review candidate messages and update each application status.</p>
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+              <div><h2 class="h5 fw-bold mb-2">Hiring inbox</h2><p class="small text-muted mb-0">Review candidates, move them through your pipeline, and keep the next step visible.</p></div>
+              <button type="button" class="btn btn-outline-dark btn-sm" id="refresh-applications"><i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i>Refresh</button>
+            </div>
+            <div id="application-pipeline" class="row row-cols-2 row-cols-md-4 g-2 mb-4" aria-label="Application pipeline"></div>
+            <div class="d-flex align-items-center flex-wrap gap-2 mb-4" role="group" aria-label="Filter applications">
+              <span class="small fw-bold me-1">Show:</span>
+              <button type="button" class="btn btn-sm admin-filter active" data-application-filter="all">All</button>
+              <button type="button" class="btn btn-sm admin-filter" data-application-filter="pending">New</button>
+              <button type="button" class="btn btn-sm admin-filter" data-application-filter="reviewed">In review</button>
+              <button type="button" class="btn btn-sm admin-filter" data-application-filter="accepted">Accepted</button>
+              <button type="button" class="btn btn-sm admin-filter" data-application-filter="rejected">Rejected</button>
+            </div>
             <div id="admin-applications" class="d-grid gap-3"></div>
           </section>
         </div>

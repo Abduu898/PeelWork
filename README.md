@@ -40,16 +40,42 @@ mysql -u root -p < schema.sql
 mysql -u root -p hireloop < seed.sql
 ```
 
-The default local database connection is configured in [`db.js`](./db.js):
+Configure the database connection with environment variables. Start by copying
+the example file:
 
-```text
-host: localhost
-user: hireloop
-password: password123
-database: hireloop
+```sh
+cp .env.example .env
 ```
 
-Update [`db.js`](./db.js) if your local MySQL credentials are different.
+Then update `.env` with your local MySQL credentials:
+
+```text
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=hireloop
+DB_PASSWORD=your-password
+DB_NAME=hireloop
+```
+
+The `.env` file is ignored by Git and must never be committed. The application
+loads these values in [`db.js`](./db.js). If `DB_PASSWORD` is empty, the local
+connection uses an empty MySQL password.
+
+If you already created the database before candidate profiles were added, apply the
+non-destructive migration before starting the server:
+
+```sh
+mysql -u root -p hireloop < migrations/001_candidate_profiles.sql
+```
+
+This adds candidate profile fields, links applications to candidate accounts, and
+backfills that link for existing applications using the applicant email.
+
+For existing databases, also apply the company profile migration:
+
+```sh
+mysql -u root -p hireloop < migrations/002_company_profiles.sql
+```
 
 ## Run the application
 
