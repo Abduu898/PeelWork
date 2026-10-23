@@ -3,6 +3,8 @@ import { escapeHTML as text } from '../components/jobs.js';
 const token = localStorage.getItem('hireloop_session');
 const user = JSON.parse(localStorage.getItem('hireloop_user') || 'null');
 const feedback = document.querySelector('#dashboard-feedback');
+const profileForm = document.querySelector('#profile-form');
+const profileFeedback = document.querySelector('#profile-feedback');
 
 if (!token || user?.role !== 'candidate') {
   window.location.href = 'login.html';
@@ -28,16 +30,48 @@ function render(applications) {
 
 async function loadDashboard() {
   try {
-    const response = await fetch('/me/applications', { headers: { Authorization: `Bearer ${token}` } });
-    const applications = await response.json();
-    if (!response.ok) throw new Error(applications.error || 'Applications could not be loaded.');
-    document.querySelector('#candidate-name').textContent = user.name;
-    document.querySelector('#candidate-email').textContent = user.email;
+    const headers = { Authorization: `Bearer ${token}` };
+    const [profileResponse, applicationsResponse] = await Promise.all([
+      fetch('/me/profile', { headers }),
+      fetch('/me/applications', { headers }),
+    ]);
+    const profile = await profileResponse.json();
+    const applications = await applicationsResponse.json();
+    if (!profileResponse.ok) throw new Error(profile.error || 'Profile could not be loaded.');
+    if (!applicationsResponse.ok) throw new Error(applications.error || 'Applications could not be loaded.');
+    document.querySelector('#candidate-name').textContent = profile.name;
+    document.querySelector('#candidate-email').textContent = profile.email;
+    for (const [name, value] of Object.entries(profile)) {
+      const field = profileForm.elements[name];
+      if (field) field.value = value || '';
+    }
+    localStorage.setItem('hireloop_user', JSON.stringify({ ...user, name: profile.name }));
     render(applications);
   } catch (error) {
     feedback.textContent = error.message;
     feedback.hidden = false;
   }
 }
+
+profileForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  profileFeedback.hidden = true;
+  try {
+    const response = await fetch('/me/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(Object.fromEntries(new FormData(profileForm))),
+    });
+    const profile = await response.json();
+    if (!response.ok) throw new Error(profile.error || 'Profile could not be saved.');
+    document.querySelector('#candidate-name').textContent = profile.name;
+    localStorage.setItem('hireloop_user', JSON.stringify({ ...user, name: profile.name }));
+    profileFeedback.textContent = 'Your profile has been saved.';
+    profileFeedback.hidden = false;
+  } catch (error) {
+    profileFeedback.textContent = error.message;
+    profileFeedback.hidden = false;
+  }
+});
 
 loadDashboard();

@@ -26,6 +26,28 @@
         <div class="col-md-4"><div class="cartoon-card custom-card dashboard-metric-card p-4"><span class="text-muted small fw-bold text-uppercase">In review</span><div id="review-count" class="fs-2 fw-bold my-1">—</div><span class="text-muted small fw-medium">Applications being reviewed</span></div></div>
         <div class="col-md-4"><div class="cartoon-card custom-card dashboard-metric-card p-4"><span class="text-muted small fw-bold text-uppercase">Next step</span><div id="next-step" class="fs-4 fw-bold my-1">—</div><span class="text-muted small fw-medium">Latest application status</span></div></div>
       </div>
+      <section class="cartoon-card custom-card p-4 mb-4" aria-labelledby="profile-heading">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+          <div><h2 id="profile-heading" class="h5 fw-bold mb-1">My candidate profile</h2><p class="small text-muted mb-0">Complete your profile once, then use it when applying.</p></div>
+          <span class="custom-badge-yellow small px-2 py-1">Private until you apply</span>
+        </div>
+        <p id="profile-feedback" class="preview-feedback small mb-3" role="status" hidden></p>
+        <form id="profile-form">
+          <div class="row g-3">
+            <div class="col-md-6"><label for="profile-name" class="form-label small fw-bold">Full name</label><input id="profile-name" name="name" class="form-control" maxlength="150" required></div>
+            <div class="col-md-6"><label for="profile-phone" class="form-label small fw-bold">Phone</label><input id="profile-phone" name="phone" class="form-control" maxlength="30"></div>
+            <div class="col-md-6"><label for="profile-location" class="form-label small fw-bold">Location</label><input id="profile-location" name="location" class="form-control" maxlength="150" placeholder="City, country or remote"></div>
+            <div class="col-md-6"><label for="profile-headline" class="form-label small fw-bold">Professional headline</label><input id="profile-headline" name="headline" class="form-control" maxlength="180" placeholder="Frontend developer seeking product teams"></div>
+            <div class="col-12"><label for="profile-bio" class="form-label small fw-bold">About you</label><textarea id="profile-bio" name="bio" class="form-control" rows="3" maxlength="3000"></textarea></div>
+            <div class="col-md-6"><label for="profile-skills" class="form-label small fw-bold">Skills</label><textarea id="profile-skills" name="skills" class="form-control" rows="3" maxlength="2000" placeholder="JavaScript, SQL, Figma"></textarea></div>
+            <div class="col-md-6"><label for="profile-experience" class="form-label small fw-bold">Experience</label><textarea id="profile-experience" name="experience" class="form-control" rows="3" maxlength="3000" placeholder="Role, company, dates, achievements"></textarea></div>
+            <div class="col-md-6"><label for="profile-education" class="form-label small fw-bold">Education</label><textarea id="profile-education" name="education" class="form-control" rows="3" maxlength="2000"></textarea></div>
+            <div class="col-md-6"><label for="profile-portfolio" class="form-label small fw-bold">Portfolio URL</label><input id="profile-portfolio" name="portfolio_url" type="url" class="form-control" maxlength="255" placeholder="https://"></div>
+            <div class="col-md-6"><label for="profile-linkedin" class="form-label small fw-bold">LinkedIn URL</label><input id="profile-linkedin" name="linkedin_url" type="url" class="form-control" maxlength="255" placeholder="https://linkedin.com/in/"></div>
+          </div>
+          <button class="btn btn-yellow mt-4" type="submit">Save profile</button>
+        </form>
+      </section>
       <section class="cartoon-card custom-card p-4" aria-labelledby="applications-heading">
         <h2 id="applications-heading" class="h5 fw-bold mb-2">My applications</h2>
         <p id="dashboard-feedback" class="preview-feedback small mb-4" role="status" hidden></p>

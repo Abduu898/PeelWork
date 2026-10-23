@@ -101,10 +101,52 @@ app.post('/ads/:id/applications', attachSessionUser, async (req, res) => {
     const applicantEmail = req.user?.role === 'candidate' ? req.user.email : email;
     if (!applicantName || !applicantEmail) return res.status(400).json({ error: 'First name and email are required.' });
     const [result] = await db.query(
-      'INSERT INTO applications (ad_id, applicant_name, applicant_email, message) VALUES (?, ?, ?, ?)',
-      [req.params.id, applicantName, applicantEmail, message || null]
+      'INSERT INTO applications (ad_id, candidate_id, applicant_name, applicant_email, message) VALUES (?, ?, ?, ?, ?)',
+      [req.params.id, req.user?.role === 'candidate' ? req.user.id : null, applicantName, applicantEmail, message || null]
     );
     res.status(201).json({ message: 'Application submitted successfully!', application_id: result.insertId });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/me/profile', requireAuth, requireRole('candidate'), async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT id, name, email, phone, location, headline, bio, skills, experience,
+              education, portfolio_url, linkedin_url
+       FROM people WHERE id = ?`,
+      [req.user.id]
+    );
+    if (!rows.length) return res.status(404).json({ error: 'Candidate profile not found.' });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/me/profile', requireAuth, requireRole('candidate'), async (req, res) => {
+  try {
+    const { name, phone, location, headline, bio, skills, experience, education, portfolio_url, linkedin_url } = req.body;
+    if (!name?.trim()) return res.status(400).json({ error: 'Name is required.' });
+    const [result] = await db.query(
+      `UPDATE people
+       SET name = ?, phone = ?, location = ?, headline = ?, bio = ?, skills = ?,
+           experience = ?, education = ?, portfolio_url = ?, linkedin_url = ?
+       WHERE id = ?`,
+      [
+        name.trim(), phone?.trim() || null, location?.trim() || null, headline?.trim() || null,
+        bio?.trim() || null, skills?.trim() || null, experience?.trim() || null,
+        education?.trim() || null, portfolio_url?.trim() || null, linkedin_url?.trim() || null,
+        req.user.id,
+      ]
+    );
+    if (!result.affectedRows) return res.status(404).json({ error: 'Candidate profile not found.' });
+    const [rows] = await db.query(
+      'SELECT id, name, email, phone, location, headline, bio, skills, experience, education, portfolio_url, linkedin_url FROM people WHERE id = ?',
+      [req.user.id]
+    );
+    res.json(rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -157,9 +199,9 @@ app.get('/me/applications', requireAuth, requireRole('candidate'), async (req, r
        FROM applications
        JOIN ads ON ads.id = applications.ad_id
        LEFT JOIN companies ON companies.id = ads.company_id
-       WHERE applications.applicant_email = ?
+       WHERE applications.candidate_id = ? OR (applications.candidate_id IS NULL AND applications.applicant_email = ?)
        ORDER BY applications.created_at DESC`,
-      [req.user.email]
+      [req.user.id, req.user.email]
     );
     res.json(rows);
   } catch (err) {
@@ -181,8 +223,11 @@ app.get('/company/ads', requireAuth, requireRole('company_admin'), async (req, r
 
 app.get('/company/applications', requireAuth, requireRole('company_admin'), async (req, res) => {
   const [rows] = await db.query(
-    `SELECT applications.*, ads.title AS job_title
+    `SELECT applications.*, ads.title AS job_title,
+            people.phone, people.location, people.headline, people.bio, people.skills,
+            people.experience, people.education, people.portfolio_url, people.linkedin_url
      FROM applications JOIN ads ON ads.id = applications.ad_id
+     LEFT JOIN people ON people.id = applications.candidate_id
      WHERE ads.company_id = ? ORDER BY applications.created_at DESC`,
     [req.user.company_id]
   );
