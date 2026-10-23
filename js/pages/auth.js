@@ -31,11 +31,8 @@ for (const kind of ['login', 'register']) {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Request failed.');
       if (kind === 'login') {
-        localStorage.setItem('hireloop_session', result.token);
-        localStorage.setItem('hireloop_user', JSON.stringify(result.user));
-        window.location.href = result.user.role === 'super_admin'
-          ? 'super-admin.html'
-          : result.user.role === 'company_admin' ? 'admin.html' : 'candidate-dashboard.html';
+        saveSession(result.token, result.user);
+        window.location.href = dashboardFor(result.user);
       } else {
         feedback.textContent = 'Candidate account created. You can now sign in.';
       }
@@ -49,3 +46,4 @@ for (const kind of ['login', 'register']) {
   });
   form.addEventListener('input', () => { feedback.hidden = true; });
 }
+import { dashboardFor, saveSession } from '../services/auth.js';

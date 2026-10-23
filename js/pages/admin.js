@@ -1,7 +1,8 @@
 import { escapeHTML as text } from '../components/jobs.js';
+import { authHeaders, clearSession, getStoredUser, getToken } from '../services/auth.js';
 
-const token = localStorage.getItem('hireloop_session');
-const user = JSON.parse(localStorage.getItem('hireloop_user') || 'null');
+const token = getToken();
+const user = getStoredUser();
 const feedback = document.querySelector('#admin-feedback');
 const form = document.querySelector('#job-editor');
 const modal = document.querySelector('#postJobModal');
@@ -17,8 +18,13 @@ if (!token || user?.role !== 'company_admin') {
 const request = async (url, options = {}) => {
   const response = await fetch(url, {
     ...options,
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...(options.headers || {}) }
+    headers: authHeaders({ 'Content-Type': 'application/json', ...(options.headers || {}) })
   });
+  if (response.status === 401) {
+    clearSession();
+    window.location.href = 'login.html';
+    return null;
+  }
   const result = await response.json();
   if (!response.ok) throw new Error(result.error || 'Request failed.');
   return result;

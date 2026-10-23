@@ -185,7 +185,7 @@ app.post('/auth/login', async (req, res) => {
 });
 
 app.post('/auth/logout', requireAuth, (req, res) => {
-  const token = req.headers.authorization.replace('Bearer ', '');
+  const token = req.headers.authorization?.replace(/^Bearer\s+/i, '');
   sessions.delete(token);
   res.json({ message: 'Logged out.' });
 });

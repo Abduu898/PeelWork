@@ -1,11 +1,12 @@
 import { escapeHTML as text } from '../components/jobs.js';
+import { authHeaders, getStoredUser, getToken } from '../services/auth.js';
 
 export function initApplication(job) {
   const form = document.querySelector('#application-form');
   const review = document.querySelector('#application-review');
   const file = document.querySelector('#resume');
-  const sessionToken = localStorage.getItem('hireloop_session');
-  const signedInUser = JSON.parse(localStorage.getItem('hireloop_user') || 'null');
+  const sessionToken = getToken();
+  const signedInUser = getStoredUser();
   document.querySelector('#application-studio').hidden = false;
   document.querySelector('#start-application').hidden = false;
   document.querySelector('#application-fields').disabled = false;
@@ -45,7 +46,7 @@ export function initApplication(job) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(sessionToken ? { Authorization: `Bearer ${sessionToken}` } : {})
+          ...authHeaders()
         },
         body: JSON.stringify({
           first_name: fullName.shift(),

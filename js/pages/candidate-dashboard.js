@@ -1,7 +1,8 @@
 import { escapeHTML as text } from '../components/jobs.js';
+import { authHeaders, clearSession, getStoredUser, getToken } from '../services/auth.js';
 
-const token = localStorage.getItem('hireloop_session');
-const user = JSON.parse(localStorage.getItem('hireloop_user') || 'null');
+const token = getToken();
+const user = getStoredUser();
 const feedback = document.querySelector('#dashboard-feedback');
 const profileForm = document.querySelector('#profile-form');
 const profileFeedback = document.querySelector('#profile-feedback');
@@ -30,13 +31,18 @@ function render(applications) {
 
 async function loadDashboard() {
   try {
-    const headers = { Authorization: `Bearer ${token}` };
+    const headers = authHeaders();
     const [profileResponse, applicationsResponse] = await Promise.all([
       fetch('/me/profile', { headers }),
       fetch('/me/applications', { headers }),
     ]);
     const profile = await profileResponse.json();
     const applications = await applicationsResponse.json();
+    if (profileResponse.status === 401 || applicationsResponse.status === 401) {
+      clearSession();
+      window.location.href = 'login.html';
+      return;
+    }
     if (!profileResponse.ok) throw new Error(profile.error || 'Profile could not be loaded.');
     if (!applicationsResponse.ok) throw new Error(applications.error || 'Applications could not be loaded.');
     document.querySelector('#candidate-name').textContent = profile.name;
@@ -59,7 +65,7 @@ profileForm.addEventListener('submit', async (event) => {
   try {
     const response = await fetch('/me/profile', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(Object.fromEntries(new FormData(profileForm))),
     });
     const profile = await response.json();

@@ -1,12 +1,11 @@
-const sessionUser = JSON.parse(localStorage.getItem('hireloop_user') || 'null');
-const dashboardLink = sessionUser?.role === 'super_admin'
-  ? 'super-admin.html'
-  : sessionUser?.role === 'company_admin' ? 'admin.html'
-    : sessionUser?.role === 'candidate' ? 'candidate-dashboard.html' : 'login.html';
-const dashboardLabel = sessionUser?.role === 'super_admin'
-  ? 'Super admin'
-  : sessionUser?.role === 'company_admin' ? 'Employer dashboard'
-    : sessionUser?.role === 'candidate' ? 'My dashboard' : 'Sign in';
+import { dashboardFor, getStoredUser, logout } from '../services/auth.js';
+
+const sessionUser = getStoredUser();
+const dashboardLink = dashboardFor(sessionUser);
+const dashboardLabel = sessionUser
+  ? sessionUser.role === 'super_admin' ? 'Super admin'
+    : sessionUser.role === 'company_admin' ? 'Employer dashboard' : 'My dashboard'
+  : 'Sign in';
 const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
     <div class="container">
       <a class="navbar-brand peelwork-brand fw-extrabold fs-4 d-flex align-items-center gap-2" href="index.html">
@@ -19,7 +18,9 @@ const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto align-items-center gap-2 mt-3 mt-lg-0">
           <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="jobs.html">Find Jobs</a></li>
-          <li class="nav-item"><a class="nav-link fw-semibold text-dark" href="login.html">Login</a></li>
+          ${sessionUser
+    ? '<li class="nav-item"><button type="button" class="nav-link fw-semibold text-dark" id="logout-button">Log out</button></li>'
+    : '<li class="nav-item"><a class="nav-link fw-semibold text-dark" href="login.html">Login</a></li>'}
           <li class="nav-item ms-lg-2 w-100 w-lg-auto">
             <a class="btn btn-yellow px-4 w-100" href="${dashboardLink}">${dashboardLabel}</a>
           </li>
@@ -54,6 +55,12 @@ const toggler = document.querySelector('.navbar-toggler');
 toggler.setAttribute('aria-controls', 'navbarNav');
 toggler.setAttribute('aria-expanded', 'false');
 toggler.setAttribute('aria-label', 'Toggle navigation');
+document.querySelector('#logout-button')?.addEventListener('click', async () => {
+  const button = document.querySelector('#logout-button');
+  button.disabled = true;
+  await logout();
+  window.location.href = 'index.html';
+});
 if (currentPage === 'index.html') {
   const notice = document.createElement('p');
   notice.className = 'small text-muted fw-medium mb-0';
