@@ -14,7 +14,7 @@ export function getToken() {
   return localStorage.getItem(SESSION_KEY);
 }
 
-export function authHeaders(headers = {}) {
+export function authHeaders(headers = {}) { /* automatically include the auth token in the headers */
   const token = getToken();
   return token ? { ...headers, Authorization: `Bearer ${token}` } : headers;
 }
