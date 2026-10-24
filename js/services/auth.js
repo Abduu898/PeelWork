@@ -1,7 +1,7 @@
 const SESSION_KEY = 'hireloop_session';
 const USER_KEY = 'hireloop_user';
 
-export function getStoredUser() {
+export function getStoredUser() { /* get storreduser is for retrieving the user data from local storage */
   try {
     return JSON.parse(localStorage.getItem(USER_KEY) || 'null');
   } catch {
@@ -19,7 +19,7 @@ export function authHeaders(headers = {}) { /* automatically include the auth to
   return token ? { ...headers, Authorization: `Bearer ${token}` } : headers;
 }
 
-export function saveSession(token, user) {
+export function saveSession(token, user) { /*so  u dont get logged out after refresh */
   localStorage.setItem(SESSION_KEY, token);
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
