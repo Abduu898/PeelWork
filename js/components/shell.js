@@ -1,5 +1,11 @@
 import { dashboardFor, getStoredUser, logout } from '../services/auth.js';
 
+const themeStorageKey = 'peelwork-theme';
+const preferredTheme = window.localStorage.getItem(themeStorageKey)
+  || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+document.documentElement.dataset.theme = preferredTheme;
+document.documentElement.classList.add('js-enabled');
+
 const sessionUser = getStoredUser();
 const dashboardLink = dashboardFor(sessionUser);
 const dashboardLabel = sessionUser
@@ -21,6 +27,12 @@ const navigation = `<nav class="navbar navbar-expand-lg sticky-top py-3">
           ${sessionUser
     ? '<li class="nav-item"><button type="button" class="nav-link fw-semibold text-dark" id="logout-button">Log out</button></li>'
     : '<li class="nav-item"><a class="nav-link fw-semibold text-dark" href="login.html">Login</a></li>'}
+          <li class="nav-item">
+            <button type="button" class="theme-toggle nav-link" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+              <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+              <span class="d-lg-none ms-2">Dark mode</span>
+            </button>
+          </li>
           <li class="nav-item ms-lg-2 w-100 w-lg-auto">
             <a class="btn btn-yellow px-4 w-100" href="${dashboardLink}">${dashboardLabel}</a>
           </li>
@@ -61,6 +73,41 @@ document.querySelector('#logout-button')?.addEventListener('click', async () => 
   await logout();
   window.location.href = 'index.html';
 });
+const themeToggle = document.querySelector('#theme-toggle');
+const syncThemeToggle = () => {
+  const isDark = document.documentElement.dataset.theme === 'dark';
+  themeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+  themeToggle.setAttribute('aria-pressed', String(isDark));
+  themeToggle.innerHTML = `<i class="bi bi-${isDark ? 'sun-fill' : 'moon-stars-fill'}" aria-hidden="true"></i><span class="d-lg-none ms-2">${isDark ? 'Light mode' : 'Dark mode'}</span>`;
+};
+syncThemeToggle();
+themeToggle.addEventListener('click', () => {
+  const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = nextTheme;
+  window.localStorage.setItem(themeStorageKey, nextTheme);
+  syncThemeToggle();
+});
+
+const revealItems = document.querySelectorAll(
+  'main section, .home-hero .row > div, .cartoon-card, .custom-card, .feature-card, .story-step, .audience-card'
+);
+revealItems.forEach((item, index) => {
+  item.classList.add('reveal-on-scroll');
+  item.style.setProperty('--reveal-delay', `${Math.min(index % 6, 5) * 70}ms`);
+});
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealItems.forEach((item) => revealObserver.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add('is-visible'));
+}
 if (currentPage === 'index.html') {
   const notice = document.createElement('p');
   notice.className = 'small text-muted fw-medium mb-0';

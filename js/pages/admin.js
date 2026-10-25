@@ -16,10 +16,10 @@ let editingId = null;
 let applicationFilter = 'all';
 
 if (!token || user?.role !== 'company_admin') {
-  window.location.href = 'login.html';
+  window.location.href = 'login.html'; /* check if user is logged in and has the correct role */
 }
 
-const request = async (url, options = {}) => {
+const request = async (url, options = {}) => { /* make an authenticated request */
   const response = await fetch(url, {
     ...options,
     headers: authHeaders({ 'Content-Type': 'application/json', ...(options.headers || {}) })
@@ -124,7 +124,7 @@ function render() {
     }).join('')
     : '<p class="text-muted">No applications in this stage.</p>';
 }
-
+/* end of role and token validation and data loading */
 async function loadDashboard() {
   try {
     const [companyResult, jobsResult, applicationsResult, categoriesResult] = await Promise.allSettled([
