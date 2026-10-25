@@ -235,6 +235,11 @@ body::after {
   box-shadow: 12px 14px 0 var(--brand-dark), inset 0 0 0 1px rgba(255,255,255,.24);
   animation: hero-card-float 7s ease-in-out infinite;
 }
+.hero-art:hover {
+  animation-play-state: paused;
+  transform: rotate(1deg) translate(-2px, -8px);
+  box-shadow: 16px 18px 0 var(--brand-dark), inset 0 0 0 1px rgba(255,255,255,.24) !important;
+}
 @keyframes hero-card-float {
   0%, 100% { transform: rotate(2deg) translateY(0); }
   50% { transform: rotate(1deg) translateY(-8px); }
@@ -563,7 +568,12 @@ body::after {
 }
 
 .cartoon-card,
-.custom-card {
+.custom-card,
+.feature-card,
+.audience-card,
+.story-step,
+.application-item,
+.dashboard-metric-card {
   background: var(--surface);
   border: var(--cartoon-border);
   border-radius: var(--cartoon-radius);
@@ -573,7 +583,12 @@ body::after {
 }
 
 .cartoon-card:hover,
-.custom-card:hover {
+.custom-card:hover,
+.feature-card:hover,
+.audience-card:hover,
+.story-step:hover,
+.application-item:hover,
+.dashboard-metric-card:hover {
   transform: translate(-2px, -2px);
   box-shadow: 9px 9px 0 var(--brand-dark) !important;
 }
@@ -581,7 +596,9 @@ body::after {
 .audience-card,
 .story-step,
 .cartoon-card,
-.custom-card {
+.custom-card,
+.application-item,
+.dashboard-metric-card {
   position: relative;
   overflow: hidden;
 }
@@ -589,7 +606,9 @@ body::after {
 .audience-card::before,
 .story-step::before,
 .cartoon-card::before,
-.custom-card::before {
+.custom-card::before,
+.application-item::before,
+.dashboard-metric-card::before {
   position: absolute;
   top: -80%;
   left: -35%;
@@ -605,7 +624,9 @@ body::after {
 .audience-card:hover::before,
 .story-step:hover::before,
 .cartoon-card:hover::before,
-.custom-card:hover::before {
+.custom-card:hover::before,
+.application-item:hover::before,
+.dashboard-metric-card:hover::before {
   transform: rotate(24deg) translateX(500%);
 }
 .reveal-on-scroll {
