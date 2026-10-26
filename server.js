@@ -318,22 +318,40 @@ app.delete('/company/ads/:id', requireAuth, requireRole('company_admin'), async 
 
 // Super-admin routes
 app.get('/admin/companies', requireAuth, requireRole('super_admin'), async (req, res) => {
-  const [rows] = await db.query('SELECT * FROM companies ORDER BY name');
-  res.json(rows);
+  try {
+    const [rows] = await db.query('SELECT * FROM companies ORDER BY name');
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.post('/admin/company-admins', requireAuth, requireRole('super_admin'), async (req, res) => {
+app.post('/admin/companies', requireAuth, requireRole('super_admin'), async (req, res) => {
+  const { company, admin } = req.body;
+  if (!company?.name?.trim() || !admin?.name?.trim() || !admin?.email?.trim() || !admin?.password) {
+    return res.status(400).json({ error: 'Company name, admin name, email, and password are required.' });
+  }
+
+  let connection;
   try {
-    const { name, email, password, company_id } = req.body;
-    if (!name || !email || !password || !company_id) return res.status(400).json({ error: 'Name, email, password, and company are required.' });
-    const [result] = await db.query(
-      'INSERT INTO people (name, email, password, role, company_id) VALUES (?, ?, ?, ?, ?)',
-      [name, email, hashPassword(password), 'company_admin', company_id]
+    connection = await db.getConnection();
+    await connection.beginTransaction();
+    const [companyResult] = await connection.query(
+      'INSERT INTO companies (name, location, description) VALUES (?, ?, ?)',
+      [company.name.trim(), company.location?.trim() || null, company.description?.trim() || null]
     );
-    res.status(201).json({ user_id: result.insertId });
+    const [adminResult] = await connection.query(
+      'INSERT INTO people (name, email, password, role, company_id) VALUES (?, ?, ?, ?, ?)',
+      [admin.name.trim(), admin.email.trim(), hashPassword(admin.password), 'company_admin', companyResult.insertId]
+    );
+    await connection.commit();
+    res.status(201).json({ company_id: companyResult.insertId, user_id: adminResult.insertId });
   } catch (err) {
-    if (err.code === 'ER_DUP_ENTRY') return res.status(409).json({ error: 'This company already has an admin or the email is already registered.' });
+    if (connection) await connection.rollback();
+    if (err.code === 'ER_DUP_ENTRY') return res.status(409).json({ error: 'This email is already registered.' });
     res.status(500).json({ error: err.message });
+  } finally {
+    if (connection) connection.release();
   }
 });
 

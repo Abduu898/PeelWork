@@ -157,7 +157,7 @@ These are development credentials only.
 ### Super admin
 
 - `GET /admin/companies`
-- `POST /admin/company-admins`
+- `POST /admin/companies` (creates a company and its first company admin atomically)
 - `GET /admin/ads`
 - `PUT /admin/ads/:id`
 - `DELETE /admin/ads/:id`

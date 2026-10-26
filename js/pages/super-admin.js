@@ -21,28 +21,42 @@ async function request(url, options = {}) {
 async function loadCompanies() {
   try {
     const companies = await request('/admin/companies');
-    document.querySelector('#company-list').innerHTML = companies.map((company) => `<tr><td class="fw-bold">${company.name}</td><td>${company.location || '—'}</td><td>${company.description || '—'}</td></tr>`).join('');
+    document.querySelector('#company-list').innerHTML = companies.map((company) => `<tr><td class="fw-bold">${escapeHtml(company.name)}</td><td>${escapeHtml(company.location || '—')}</td><td>${escapeHtml(company.description || '—')}</td></tr>`).join('');
   } catch (error) {
     feedback.textContent = error.message;
     feedback.hidden = false;
   }
 }
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+  }[character]));
+}
+
 document.querySelector('#admin-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   try {
-    await request('/admin/company-admins', {
+    await request('/admin/companies', {
       method: 'POST',
       body: JSON.stringify({
-        name: document.querySelector('#adminName').value.trim(),
-        email: document.querySelector('#adminEmail').value.trim(),
-        password: document.querySelector('#adminPassword').value,
-        company_id: Number(document.querySelector('#adminCompany').value)
+        company: {
+          name: document.querySelector('#companyName').value.trim(),
+          location: document.querySelector('#companyLocation').value.trim(),
+          description: document.querySelector('#companyDescription').value.trim()
+        },
+        admin: {
+          name: document.querySelector('#adminName').value.trim(),
+          email: document.querySelector('#adminEmail').value.trim(),
+          password: document.querySelector('#adminPassword').value
+        }
       })
     });
-    feedback.textContent = 'Company admin created.';
+    feedback.textContent = 'Company and admin created.';
     feedback.hidden = false;
+    document.querySelector('#admin-form').reset();
     window.bootstrap.Modal.getInstance(document.querySelector('#adminModal')).hide();
+    await loadCompanies();
   } catch (error) {
     feedback.textContent = error.message;
     feedback.hidden = false;
