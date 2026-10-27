@@ -69,9 +69,29 @@ app.get('/categories', async (req, res) => {
   }
 });
 
+// Search and filters are applied in SQL: ?q=&location=&category=&contract=
 app.get('/ads', async (req, res) => {
   try {
-    const [rows] = await db.query(`${jobQuery} ORDER BY ads.created_at DESC`);
+    const q = String(req.query.q || '').trim();
+    const location = String(req.query.location || '').trim();
+    const category = String(req.query.category || '').trim();
+    const contract = String(req.query.contract || '').trim();
+    const like = (v) => `%${v.replace(/[\\%_]/g, '\\$&')}%`; /* escapes LIKE wildcards typed by the user */
+
+    const where = [];
+    const params = [];
+    if (q) {
+      where.push('(ads.title LIKE ? OR ads.description LIKE ? OR companies.name LIKE ? OR categories.name LIKE ?)');
+      params.push(like(q), like(q), like(q), like(q));
+    }
+    if (location) { where.push('ads.location LIKE ?'); params.push(like(location)); }
+    if (category) { where.push('ads.category_id = ?'); params.push(category); }
+    if (contract) { where.push('ads.contract_type = ?'); params.push(contract); }
+
+    const [rows] = await db.query(
+      `${jobQuery} ${where.length ? 'WHERE ' + where.join(' AND ') : ''} ORDER BY ads.created_at DESC`,
+      params
+    );
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
