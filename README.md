@@ -113,12 +113,12 @@ The preview serves the frontend on port `5173` and proxies API requests to the i
 
 These accounts are created by [`seed.sql`](./seed.sql):
 
-| Role | Email | Password | Dashboard |
-|---|---|---|---|
-| Super admin | `admin@hireloop.com` | `admin123` | `super-admin.html` |
-| TechCorp company admin | `techcorp@hireloop.com` | `company123` | `admin.html` |
-| DesignStudio company admin | `designstudio@hireloop.com` | `company123` | `admin.html` |
-| Candidate | `user@hireloop.com` | `user123` | `candidate-dashboard.html` |
+| Role | Email | Password | Company | Dashboard |
+|---|---|---|---|---|
+| Super admin | `admin@hireloop.com` | `VYszeNLbHLENsX3OEcht-vmd` | — | `super-admin.html` |
+| TechCorp company admin | `techcorp@hireloop.com` | `s72qz4DuHSFzCKYmMNolY6-H` | `1` | `admin.html` |
+| DesignStudio company admin | `designstudio@hireloop.com` | `AHeP5Gqm_5IcveggwOQm4hlu` | `2` | `admin.html` |
+| Candidate | `user@hireloop.com` | `ipjyhaEA5lLQJBTQ-LH2A5ub` | — | `candidate-dashboard.html` |
 
 These are development credentials only.
 
