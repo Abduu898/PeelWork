@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 Disallow: /me
-
+Sitemap: /sitemap.xml
