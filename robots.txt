@@ -11,3 +11,7 @@ Disallow: /admin/
 Disallow: /applications/
 
 Sitemap: https://peelwork.onrender.com/sitemap.xml
+Disallow: /admin
+Disallow: /auth
+Disallow: /me
+Sitemap: /sitemap.xml

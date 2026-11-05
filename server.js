@@ -6,8 +6,20 @@ const db = require('./db');
 const app = express();
 const sessions = new Map();
 const PORT = 3000;
+const getSiteUrl = (req) => (process.env.SITE_URL || `${req.protocol}://${req.get('host')}`).replace(/\/+$/, '');
 
 app.use(express.json()); /* turns json to js */ 
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(
+    `User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /me
+Sitemap: ${getSiteUrl(req)}/sitemap.xml
+`
+  );
+});
 app.use(express.static(__dirname)); /*so html css can work in browser*/ 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -18,6 +30,46 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+
+const escapeXML = (value) => String(value)
+  .replace(/[<>&'"]/g, (character) => ({
+    '<': '&lt;',
+    '>': '&gt;',
+    '&': '&amp;',
+    "'": '&apos;',
+    '"': '&quot;',
+  }[character]));
+
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    const siteUrl = getSiteUrl(req);
+    const staticPages = ['', 'jobs.html'];
+    const [jobs] = await db.query('SELECT id, created_at FROM ads ORDER BY created_at DESC');
+    const urls = staticPages.map((page) => ({
+      loc: `${siteUrl}/${page}`,
+      lastmod: null,
+    }));
+    for (const job of jobs) {
+      urls.push({
+        loc: `${siteUrl}/job-detail.html?id=${encodeURIComponent(job.id)}`,
+        lastmod: job.created_at,
+      });
+    }
+
+    const entries = urls.map(({ loc, lastmod }) => [
+      '  <url>',
+      `    <loc>${escapeXML(loc)}</loc>`,
+      lastmod ? `    <lastmod>${new Date(lastmod).toISOString()}</lastmod>` : null,
+      '  </url>',
+    ].filter(Boolean).join('\n')).join('\n');
+    res.type('application/xml').send(
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`
+    );
+  } catch (err) {
+    console.error('Unable to generate sitemap:', err);
+    res.status(500).type('text').send('Unable to generate sitemap.');
+  }
+});
 /* imports and setup */ 
 
 function hashPassword(password) {
