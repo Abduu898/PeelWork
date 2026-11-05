@@ -1,5 +1,16 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /super-admin.html
+Disallow: /candidate-dashboard.html
+Disallow: /api/
+Disallow: /auth/
+Disallow: /me/
+Disallow: /company/
+Disallow: /admin/
+Disallow: /applications/
+
+Sitemap: https://peelwork.onrender.com/sitemap.xml
 Disallow: /admin
 Disallow: /auth
 Disallow: /me

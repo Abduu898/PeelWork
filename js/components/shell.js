@@ -108,9 +108,3 @@ if ('IntersectionObserver' in window) {
 } else {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 }
-if (currentPage === 'index.html') {
-  const notice = document.createElement('p');
-  notice.className = 'small text-muted fw-medium mb-0';
-  notice.textContent = 'Fresh roles, better matches.';
-  document.querySelector('main .container').append(notice);
-}
